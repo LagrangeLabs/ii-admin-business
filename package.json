@@ -1,7 +1,8 @@
 {
   "private": true,
-  "name": "ii-ui-business",
+  "name": "ii-admin-business",
   "version": "1.0.0",
+  "homepage": "https://lagrangelabs.github.io/ii-admin-business",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
