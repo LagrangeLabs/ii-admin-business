@@ -11,7 +11,8 @@
     "release": "npm run build && npm publish",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "prepublishOnly": "npm run build"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -48,5 +49,8 @@
     "lodash": "^4.17.20",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
