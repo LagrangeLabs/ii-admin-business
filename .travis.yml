@@ -1,24 +1,30 @@
 language: node_js
 node_js:
-  - stable
+- stable
 cache:
   directories:
-    - node_modules
-
-# 设置环境变量
+  - node_modules
 env:
   matrix:
-    - CI=true
-
+  - CI=true
 script:
-  # 默认运行编译脚本
-  - npm run docs:build
+- npm run docs:build
+deploy:
+
 
 deploy:
-  provider: script
-  # Do not delete the build assets
-  skip_cleanup: true
-  script: bash scripts/deploy.sh
-  on:
-    # 当 master 有 push 的时候，触发 deploy 操作
-    branch: master
+  # 发布到 gh-pages 上
+  - provider: script
+    skip_cleanup: true
+    script: bash scripts/deploy.sh
+    on:
+      branch: master
+  # 发布到 npm 上
+  - provider: npm
+    email: aisi@mail.i-i.ai
+    api_key:
+      secure: HZYUvPx3XQCZd9USCIXr0N/20Ff/f7VT7TKkrVRdJY3LOSpCiQrjKvikIEe8UofRIS5BmuWHfay4C28ZFNy1t+3wRN9JIeNxrg55BAOHA8I8TtIxG1PYLv8ph1c55CnNaTGWx391SoDRv2Adkmu/75hv7kWFZuft/SDfbArbuMiCuwscH/JLQEFL1kUx99Q57hAG9SGWkUCSXuC4EXIo+Td8G+amp1owVRUbTaamUw7ghc8IkNqE25KUpbzbFzArC8AxzBnvisC6FqLGO3KaQoiQDJyFMGFueJfo078yl/7g6gkFrkrYjIuOVUGfzJe1tmhEG7n68V0cLVIhmKMvtVD3NsIJXHVPRof+De1n64XrccSCrmSkqlkB644Ckix95W9638ohrq1dyI5b4dqmnjbfJ4BE/Xu7DTK63/A9GdhquYeVJo86h20uMvVWaX3oL7OTwnYtsl9eCgHnuwLzm2vA2pKfinbivzYSErh0wzQChcr+3jvuMVjcrBy75R5eMIJyWt6MWk//IRn6qttqEOk+kxjgAqRDh+3lQ9obdvIIuWULzTvZxCNuM8CGsKHQFohZkmnt79EbrvzOFF874KhbXuKNyW2/vxpAN19kiTPVGNx8YroWe1RDUPyA/resBjMNVhddZLT2eyJfIY4SjrrxvfFZxaUYV7wFQaxM/A4=
+    on:
+      tags: master
+      repo: LagrangeLabs/ii-admin-business
+    skip_cleanup: 'true'
