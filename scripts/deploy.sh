@@ -2,7 +2,7 @@
 set -e
 
 # setup ssh-agent and provide the GitHub deploy key
-openssl aes-256-cbc -K $encrypted_4d2af9b6eaf6_key -iv $encrypted_4d2af9b6eaf6_iv -in ci_rsa.enc -out ci_rsa -d
+openssl aes-256-cbc -K $encrypted_4d2af9b6eaf6_key -iv $encrypted_4d2af9b6eaf6_iv -in ci_rsa.enc -out deploy -d
 
 # 对解密后的私钥添加权限
 chmod 600 deploy
