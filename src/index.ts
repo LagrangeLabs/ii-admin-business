@@ -1,2 +1,2 @@
-export { default as Foo } from './Foo';
-export { default as SelectSearch } from './SelectSearch';
+export { default as Voice } from './Voice';
+export { default as RichText } from './RichText';
