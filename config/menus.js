@@ -6,7 +6,7 @@ export default {
     },
     {
       title: '展示组件',
-      children: ['components/voice'],
+      children: ['components/voice', 'components/rich-text'],
     },
     {
       title: '数据录入组件',
