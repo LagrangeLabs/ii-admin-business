@@ -16,5 +16,9 @@ export default {
       title: '数据录入组件',
       children: ['components/radio-datepicker'],
     },
+    {
+      title: '功能性组件',
+      children: ['components/up-status'],
+    },
   ],
 };
