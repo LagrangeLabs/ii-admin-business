@@ -91,6 +91,7 @@ function getFormItem(item: FormItem & SearchProps) {
     uploadImage,
     showTime,
     tinymceSrc,
+    ...rest
   } = item;
   let { placeholder } = item;
   if (!placeholder) {
@@ -122,7 +123,14 @@ function getFormItem(item: FormItem & SearchProps) {
         <Input type={inputType} style={itemStyle} placeholder={placeholder} />
       );
     case 'upload':
-      return <MyUpload style={itemStyle} extra={extra} describe={describe} />;
+      return (
+        <MyUpload
+          style={itemStyle}
+          extra={extra}
+          describe={describe}
+          {...rest}
+        />
+      );
     case 'richtext':
       return <RichText uploadImage={uploadImage} tinymceSrc={tinymceSrc} />;
     case 'textarea':
