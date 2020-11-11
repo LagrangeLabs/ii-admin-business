@@ -6,11 +6,15 @@ export default {
     },
     {
       title: '展示组件',
-      children: ['components/voice', 'components/rich-text'],
+      children: [
+        'components/voice',
+        'components/rich-text',
+        'components/my-form',
+      ],
     },
     {
       title: '数据录入组件',
-      children: [],
+      children: ['components/radio-datepicker'],
     },
   ],
 };
