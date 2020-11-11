@@ -8,7 +8,7 @@ Demo:
 
 ```tsx
 import React from 'react';
-import { MyForm } from 'ii-admin-base';
+import { MyForm } from 'ii-admin-business';
 import { Form, Button, Row, Col } from 'antd';
 
 const DEMO_FORM = [
@@ -178,10 +178,10 @@ export default () => {
 
 #### type 为 richtext
 
-| 属性        | 说明                     | 类型                       | 默认值                                                         | 版本 |
-| ----------- | ------------------------ | -------------------------- | -------------------------------------------------------------- | ---- |
-| tinymceSrc  | tinymce js 文件地址      | string                     | https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js |      |
-| uploadImage | uploadImage 上传图片方法 | (params: any) => Promise<> |                                                                |      |
+| 属性        | 说明                     | 类型                     | 默认值                                                         | 版本 |
+| ----------- | ------------------------ | ------------------------ | -------------------------------------------------------------- | ---- |
+| tinymceSrc  | tinymce js 文件地址      | string                   | https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js |      |
+| uploadImage | uploadImage 上传图片方法 | (params: any) => Promise |                                                                |      |
 
 #### type 为 phone
 
