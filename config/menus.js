@@ -10,11 +10,16 @@ export default {
         'components/voice',
         'components/rich-text',
         'components/my-form',
+        'components/scroll-pdf',
       ],
     },
     {
       title: '数据录入组件',
       children: ['components/radio-datepicker'],
+    },
+    {
+      title: '功能性组件',
+      children: ['components/up-status'],
     },
   ],
 };
