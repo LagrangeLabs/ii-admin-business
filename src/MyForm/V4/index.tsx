@@ -30,7 +30,7 @@ import RichText from '../../RichText';
 const { Option } = Select;
 const { TextArea } = Input;
 
-import { FormItem } from './type';
+import { FormItem } from './interface';
 // 栅格布局时计算每个item的layout
 const getLayoutItem = (formItemLayout: any, preSpan: number, span: number) => {
   const formLayoutCopy = JSON.parse(JSON.stringify(formItemLayout));

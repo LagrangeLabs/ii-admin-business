@@ -1,6 +1,6 @@
 {
   "name": "ii-admin-business",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "homepage": "https://lagrangelabs.github.io/ii-admin-business",
   "repository": {
     "type": "git",
@@ -38,7 +38,8 @@
     "antd": ">=4.7.0",
     "lodash": ">=4.17.0",
     "ii-admin-base": ">=1.1.0",
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "prop-types": ">=15.0.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.2.2",

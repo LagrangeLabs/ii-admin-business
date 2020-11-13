@@ -10,6 +10,7 @@ export default {
         'components/voice',
         'components/rich-text',
         'components/my-form',
+        'components/scroll-pdf',
       ],
     },
     {

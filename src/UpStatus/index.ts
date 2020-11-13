@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-const _hook = (initValue, onChange) => {
+const _hook = (initValue: any, onChange: any) => {
   const [state, setState] = useState(initValue);
 
   useEffect(() => {
