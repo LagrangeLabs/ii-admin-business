@@ -11,6 +11,7 @@ export default {
         'components/rich-text',
         'components/my-form',
         'components/scroll-pdf',
+        'components/page-table',
       ],
     },
     {

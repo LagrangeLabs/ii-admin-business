@@ -1,0 +1,48 @@
+.ii-ui-business-pageTable-container {
+  position: relative;
+  background: #fff;
+  &.has-search-tree {
+    padding-left: 220px;
+  }
+}
+.ii-ui-business-pageTable-search-tree {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  padding: 12px;
+  box-sizing: border-box;
+  border-right: 1px solid #eaf0f7;
+}
+.ii-ui-business-pageTable {
+  padding: 28px 30px 50px 30px;
+  position: relative;
+
+  .page-table-title {
+    color: #334355;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 20px;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: rgba(0, 129, 255, 1);
+      position: absolute;
+      left: -30px;
+    }
+  }
+  .page-table-filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .page-table-options {
+    flex: 1;
+  }
+}

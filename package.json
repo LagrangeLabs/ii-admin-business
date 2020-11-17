@@ -1,6 +1,6 @@
 {
   "name": "ii-admin-business",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "homepage": "https://lagrangelabs.github.io/ii-admin-business",
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "@ant-design/icons": ">=4.2.0",
     "antd": ">=4.7.0",
     "lodash": ">=4.17.0",
-    "ii-admin-base": ">=1.1.0",
+    "ii-admin-base": ">=1.1.5",
+    "ii-admin-ui": ">=1.0.1",
     "react": ">=16.8.0",
     "prop-types": ">=15.0.0"
   },
@@ -50,7 +51,8 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "father-build": "^1.17.2",
     "gh-pages": "^3.0.0",
-    "ii-admin-base": "^1.1.2",
+    "ii-admin-base": "^1.1.5",
+    "ii-admin-ui": "^1.0.1",
     "lint-staged": "^10.0.7",
     "lodash": "^4.17.20",
     "prettier": "^1.19.1",

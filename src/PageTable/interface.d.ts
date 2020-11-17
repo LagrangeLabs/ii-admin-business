@@ -1,0 +1,73 @@
+import { ColumnProps } from 'antd/lib/table';
+import { DataNode, TreeProps } from 'antd/lib/tree';
+
+import { FilterItemProps } from '../FilterOptions/interface';
+
+export interface IPageTableProps {
+  /** 表单数据总数 */
+  total?: number;
+  /** 表单数据 */
+  tableList?: Array<any>;
+  /** 区分Key值 */
+  uniqueKey?: string;
+  /** 表单columns配置项 */
+  columns: Array<ColumnProps<any>>;
+  /** 表单页面标题 */
+  pageTitle?: string;
+  /** 表单筛选项 */
+  filters?: Array<FilterItemProps>;
+  /** 是否展示组织树 */
+  showSearchTree?: boolean;
+  /** 是否显示新增操作 */
+  showCreate?: boolean;
+  /** 是否显示导出操作 */
+  needExport?: boolean;
+  /** 新增按钮位置 */
+  leftCreate?: boolean;
+  /** 新增按钮图标 */
+  createIcon?: React.ReactNode;
+  /** 导出按钮图标 */
+  downIcon?: React.ReactNode;
+  /** 是否显示筛选 */
+  needSelect?: boolean;
+  /** 刷新数据标志 */
+  needRefresh?: boolean;
+  /** 是否回到第一页 默认值 false */
+  resetFresh?: boolean;
+  /** 新增按钮文字标题 */
+  createTitle?: string;
+  /** 页面水平、垂直滚动 */
+  scroll?: object;
+
+  /** 树结构数据 */
+  treeData?: DataNode[];
+  /** 需要加工的title字段 */
+  titleField?: string;
+  /** 需要加工的key字段 */
+  keyField?: string;
+  /** 需要加工的children字段 */
+  childrenField?: string;
+  /** icon图标 */
+  iconTag?: React.ReactNode;
+  /** 是否显示搜索 */
+  showSearch?: boolean;
+  /** search tree 间距 */
+  gap?: number;
+  /** tree节点选择回调 */
+  onTreeSelect: (params: any) => void;
+
+  /** 默认搜索条件 */
+  defaultCondtions?: { [key: string]: string };
+  /** 获取表单数据接口 */
+  getTableList: (params: any) => void;
+  /** 新增操作回调 */
+  createCallback?: (params: any) => void;
+  /** 树状组织选择回调 */
+  selectTreeCallback?: (params: any) => void;
+  /** 选择回调 */
+  selectCallback?: (params: any) => void;
+  /** 排序、过滤字段处理 */
+  getSortFilterParams?: (params: any) => object;
+  /** 导出回调 */
+  exportCallback?: (params: any) => void;
+}

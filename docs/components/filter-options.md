@@ -17,6 +17,7 @@ export default () => {
       placeholder: '请输入项目名称',
       filter: 'name',
       width: '30%',
+      className: 'testinput',
     },
     {
       type: 'rangepicker',

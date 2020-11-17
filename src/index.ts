@@ -6,3 +6,4 @@ export { default as UpStatus } from './UpStatus';
 export { default as ScrollPdf } from './ScrollPdf';
 
 export { default as FilterOptions } from './FilterOptions';
+export { default as PageTable } from './PageTable';
