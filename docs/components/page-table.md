@@ -9,6 +9,8 @@ Demo:
 ```tsx
 import React from 'react';
 import { PageTable } from 'ii-admin-business';
+import { PlusOutlined, FileOutlined } from '@ant-design/icons';
+import { SearchTree } from 'ii-admin-base';
 
 export default () => {
   const treeData = [
@@ -69,25 +71,50 @@ export default () => {
       width: '40%',
     },
   ];
+  const tableList = [
+    { key: '名称', id: '1', value: 'ming' },
+    { key: '名称2', id: '2', value: 'ming' },
+    { key: '名称3', id: '3', value: 'ming' },
+  ];
+  const columns = [
+    { dataIndex: 'key', title: '第一列' },
+    { dataIndex: 'value', title: '第二列' },
+  ];
+  const deleteCallback = value => {
+    console.log(value, 'sdfsdfsdf');
+  };
+  const createCallback = value => {
+    console.log('value=======', value);
+  };
+
   return (
-    <PageTable
-      total={100}
-      pageTitle="页面标题"
-      tableList={[]}
-      getTableList={() => {}}
-      columns={[]}
-      filters={filters}
-      showCreate={true}
-      createTitle="新增"
-      createCallback={() => {}}
-      showSearchTree
-      treeData={treeData}
-      titleField="hhh"
-      keyField="lll"
-      childrenField="kkk"
-      showSearch
-      leftCreate
-    />
+    <div>
+      <PageTable
+        total={100}
+        pageTitle="页面标题"
+        tableList={tableList}
+        getTableList={() => {}}
+        columns={columns}
+        filters={filters}
+        showCreate={true}
+        createTitle="新增"
+        createCallback={() => {}}
+        showSearchTree
+        treeData={treeData}
+        titleField="hhh"
+        keyField="lll"
+        childrenField="kkk"
+        searchTreeKey="template_category"
+        createIcon={<PlusOutlined />}
+        showSearch
+        leftCreate
+        needPatchDelete
+        needSelect
+        iconTag={<PlusOutlined />}
+        deleteCallback={deleteCallback}
+        createCallback={createCallback}
+      />
+    </div>
   );
 };
 ```
@@ -107,6 +134,9 @@ export default () => {
 | downIcon            | 导出按钮图标          | React.ReactNode                                                 |        |
 | showCreate          | 是否显示新增操作      | boolean                                                         |        |      |
 | needExport          | 是否显示导出操作      | boolean                                                         |        |      |
+| needPatchDelete     | 是否显示批量删除      | boolean                                                         |        |      |
+| deleteTitle         | 删除按钮文字          | string                                                          |        |      |
+| deleteCallback      | 删除回调              | (params: any) => void                                           |        |      |
 | needSelect          | 是否显示筛选          | boolean                                                         |        |      |
 | needRefresh         | 刷新数据标志          | boolean                                                         |        |      |
 | resetFresh          | 是否回到第一页 默认值 | boolean                                                         | false  |      |
@@ -123,14 +153,15 @@ export default () => {
 
 ### 有组织树时配置
 
-| 属性           | 说明                     | 类型            | 默认值 | 版本 |
-| -------------- | ------------------------ | --------------- | ------ | ---- |
-| showSearchTree | 是否展示组织树           | boolean         |        |      |
-| treeData       | 树结构数据               | DataNode[]      |        |      |
-| titleField     | 需要加工的 title 字段    | string          |        |      |
-| keyField       | 需要加工的 key 字段      | string          |        |      |
-| childrenField  | 需要加工的 children 字段 | string          |        |      |
-| iconTag        | icon 图标                | React.ReactNode |        |      |
-| showSearch     | 是否显示搜索             | boolean         |        |      |
+| 属性           | 说明                              | 类型            | 默认值 | 版本 |
+| -------------- | --------------------------------- | --------------- | ------ | ---- |
+| showSearchTree | 是否展示组织树                    | boolean         |        |      |
+| searchTreeKey  | 组织树选中节点作为搜索条件 key 值 | string          |        |      |
+| treeData       | 树结构数据                        | DataNode[]      |        |      |
+| titleField     | 需要加工的 title 字段             | string          |        |      |
+| keyField       | 需要加工的 key 字段               | string          |        |      |
+| childrenField  | 需要加工的 children 字段          | string          |        |      |
+| iconTag        | icon 图标                         | React.ReactNode |        |      |
+| showSearch     | 是否显示搜索                      | boolean         |        |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
