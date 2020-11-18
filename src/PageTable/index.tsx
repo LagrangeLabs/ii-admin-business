@@ -6,8 +6,8 @@ import { SearchTree } from 'ii-admin-base';
 import { TablePaginationConfig } from 'antd/lib/table';
 // import { SorterResult } from 'antd/lib/table/interface';
 
-import FilterOptions from '../FilterOptions';
 import { IPageTableProps } from './interface';
+import FilterOptions from '../FilterOptions';
 
 import './index.less';
 
@@ -188,6 +188,7 @@ const PageTable: FC<IPageTableProps> = props => {
     }
   };
   const onSelect = (value: any, item: any) => {
+    console.log(item, 'sdfsdfsdfsdfsdfsfdssdfsdfsdfdssdf');
     const keyValue = {
       key: item.node.key,
       value,

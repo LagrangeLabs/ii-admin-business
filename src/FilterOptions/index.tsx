@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent } from 'react';
+import React, { FC } from 'react';
 import { Input, InputNumber, DatePicker, Select, Cascader } from 'antd';
 import moment from 'moment';
 

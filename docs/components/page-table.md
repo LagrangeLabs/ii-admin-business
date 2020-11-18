@@ -19,12 +19,12 @@ export default () => {
       lll: '0-0',
       kkk: [
         {
-          hhh: '0-0-0',
-          lll: '0-0-0',
+          hhh: 'name',
+          lll: 'value',
           kkk: [
-            { hhh: '0-0-0-0', lll: '0-0-0-0' },
-            { hhh: '0-0-0-1', lll: '0-0-0-1' },
-            { hhh: '0-0-0-2', lll: '0-0-0-2' },
+            { hhh: 'name-0', lll: 'value-0' },
+            { hhh: 'name-1', lll: 'value-1' },
+            { hhh: 'name-2', lll: 'value-2' },
           ],
         },
         {
