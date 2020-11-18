@@ -18,10 +18,14 @@ export interface IPageTableProps {
   filters?: Array<FilterItemProps>;
   /** 是否展示组织树 */
   showSearchTree?: boolean;
+  /** 组织树选中节点作为搜索条件key值 */
+  searchTreeKey?: string;
   /** 是否显示新增操作 */
   showCreate?: boolean;
   /** 是否显示导出操作 */
   needExport?: boolean;
+  /** 是否显示批量删除 */
+  needPatchDelete?: boolean;
   /** 新增按钮位置 */
   leftCreate?: boolean;
   /** 新增按钮图标 */
@@ -36,6 +40,8 @@ export interface IPageTableProps {
   resetFresh?: boolean;
   /** 新增按钮文字标题 */
   createTitle?: string;
+  /** 删除按钮文字 */
+  deleteTitle?: string;
   /** 页面水平、垂直滚动 */
   scroll?: object;
 
@@ -70,4 +76,6 @@ export interface IPageTableProps {
   getSortFilterParams?: (params: any) => object;
   /** 导出回调 */
   exportCallback?: (params: any) => void;
+  /** 删除回调 */
+  deleteCallback?: (params: any) => void;
 }

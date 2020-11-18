@@ -36,8 +36,10 @@ const PageTable: FC<IPageTableProps> = props => {
     showCreate,
     leftCreate,
     showSearchTree,
+    searchTreeKey,
     showSearch = true,
     createTitle,
+    deleteTitle = '批量删除',
     defaultCondtions = {},
 
     treeData = [],
@@ -50,9 +52,11 @@ const PageTable: FC<IPageTableProps> = props => {
     createCallback,
     selectCallback,
     exportCallback,
+    deleteCallback,
     selectTreeCallback,
     getSortFilterParams = getSortFilterParamsDefault,
     needExport,
+    needPatchDelete,
     createIcon,
     downIcon,
     needSelect,
@@ -157,21 +161,37 @@ const PageTable: FC<IPageTableProps> = props => {
     : undefined;
 
   const handleExport = () => {
-    if (needSelect) {
-      if (selectedRowKeys.length === 0) {
-        message.error('请先选择要导出的数据');
-        return;
-      } else {
-        exportCallback && exportCallback(selectedRowKeys);
-      }
+    if (selectedRowKeys.length === 0) {
+      message.error('请先选择要导出的数据');
+      return;
     } else {
-      exportCallback && exportCallback(searchConditons);
+      exportCallback && exportCallback(selectedRowKeys);
+    }
+  };
+  const handleDelete = () => {
+    if (selectedRowKeys.length === 0) {
+      message.error('请先选择要删除的数据');
+      return;
+    } else {
+      deleteCallback && deleteCallback(selectedRowKeys);
     }
   };
 
   const handleCreate = () => {
     if (createCallback) {
       createCallback(searchConditons);
+    }
+  };
+  const onSelect = (value: any, item: any) => {
+    const keyValue = {
+      key: item.node.key,
+      value,
+    };
+    if (searchTreeKey) {
+      handleSearchConditions({ [searchTreeKey]: keyValue.key });
+    }
+    if (onTreeSelect) {
+      onTreeSelect(keyValue);
     }
   };
 
@@ -189,9 +209,10 @@ const PageTable: FC<IPageTableProps> = props => {
             keyField={keyField}
             childrenField={childrenField}
             iconTag={iconTag}
+            showIcon={!!iconTag}
             showSearch={showSearch}
             gap={gap}
-            onSelect={onTreeSelect}
+            onSelect={onSelect}
           />
         </div>
       )}
@@ -258,6 +279,16 @@ const PageTable: FC<IPageTableProps> = props => {
           }}
           {...restOptions}
         />
+        {needPatchDelete && total ? (
+          <div className="delete-container">
+            已选中{' '}
+            <span style={{ color: '#2F9AFF' }}>{selectedRowKeys.length}</span>{' '}
+            条
+            <Button style={{ marginLeft: '16px' }} onClick={handleDelete}>
+              {deleteTitle}
+            </Button>
+          </div>
+        ) : null}
         {renderChildren()}
       </div>
     </div>
