@@ -77,6 +77,7 @@ export default () => {
     { key: '名称3', id: '3', value: 'ming' },
   ];
   const columns = [
+    { dataIndex: 'serialNumber', title: '序号' },
     { dataIndex: 'key', title: '第一列' },
     { dataIndex: 'value', title: '第二列' },
   ];

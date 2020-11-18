@@ -125,10 +125,15 @@ const PageTable: FC<IPageTableProps> = props => {
     }
   };
 
-  const nColumns = columns.map(item => ({
+  const nColumns: any = columns.map(item => ({
     dataIndex: item.key,
     ...item,
   }));
+  if (nColumns.length && nColumns[0].dataIndex === 'serialNumber') {
+    nColumns[0].render = (_: any, _item: any, index: number) => {
+      return (pageNum - 1) * pageSize + index + 1;
+    };
+  }
 
   const handleSearchConditions = (data: any) => {
     setPageNum(1);
