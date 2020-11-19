@@ -48,6 +48,7 @@ const PageTable: FC<IPageTableProps> = props => {
     childrenField = 'children',
     iconTag,
     gap,
+    orderingKey = 'ordering',
     onTreeSelect,
     createCallback,
     selectCallback,
@@ -119,9 +120,9 @@ const PageTable: FC<IPageTableProps> = props => {
         const orderObj = getSortFilterParams(columnKey, order);
         setSearchConditions({ ...newCondition, ...orderObj });
       } else {
-        delete newCondition.ordering;
+        delete newCondition[orderingKey];
+        setSearchConditions(newCondition);
       }
-      setSearchConditions(newCondition);
     }
   };
 

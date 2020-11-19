@@ -122,35 +122,36 @@ export default () => {
 
 ### PageTable 入参
 
-| 属性                | 说明                  | 类型                                                            | 默认值 | 版本 |
-| ------------------- | --------------------- | --------------------------------------------------------------- | ------ | ---- |
-| total               | 表单数据总数          | number                                                          |        |      |
-| tableList           | 表单数据              | Array                                                           |        |      |
-| uniqueKey           | 区分 Key 值           | string                                                          |        |      |
-| columns             | 表单 columns 配置项   | [ColumnProps](https://ant.design/components/table-cn/#Column)[] |        |      |
-| pageTitle           | 表单页面标题          | string                                                          |        |      |
-| filters             | 表单筛选项            | [FilterItemProps](/components/filter-options)[]                 |        |      |
-| leftCreate          | 新增按钮位置          | boolean                                                         |        |
-| createIcon          | 新增按钮图标          | React.ReactNode                                                 |        |
-| downIcon            | 导出按钮图标          | React.ReactNode                                                 |        |
-| showCreate          | 是否显示新增操作      | boolean                                                         |        |      |
-| needExport          | 是否显示导出操作      | boolean                                                         |        |      |
-| needPatchDelete     | 是否显示批量删除      | boolean                                                         |        |      |
-| deleteTitle         | 删除按钮文字          | string                                                          |        |      |
-| deleteCallback      | 删除回调              | (params: any) => void                                           |        |      |
-| needSelect          | 是否显示筛选          | boolean                                                         |        |      |
-| needRefresh         | 刷新数据标志          | boolean                                                         |        |      |
-| resetFresh          | 是否回到第一页 默认值 | boolean                                                         | false  |      |
-| createTitle         | 新增按钮文字标题      | string                                                          |        |      |
-| scroll              | 页面水平、垂直滚动    | object                                                          |        |      |
-| gap                 | search tree 间距      | number                                                          |        |      |
-| onTreeSelect        | tree 节点选择回调     | (params: any) => void                                           |        |      |
-| defaultCondtions    | 默认搜索条件          | {[key: string]: string}                                         |        |      |
-| getTableList        | 获取表单数据接口      | (params: any) => void                                           |        |      |
-| createCallback      | 新增操作回调          | (params: any) => void                                           |        |      |
-| selectCallback      | 列表复选框 选择回调   | (params: any) => void                                           |        |      |
-| getSortFilterParams | 排序、过滤字段处理    | (params: any) => object                                         |        |      |
-| exportCallback      | 导出回调              | (params: any) => void                                           |        |      |
+| 属性                | 说明                      | 类型                                                            | 默认值 | 版本 |
+| ------------------- | ------------------------- | --------------------------------------------------------------- | ------ | ---- |
+| total               | 表单数据总数              | number                                                          |        |      |
+| tableList           | 表单数据                  | Array                                                           |        |      |
+| uniqueKey           | 区分 Key 值               | string                                                          |        |      |
+| columns             | 表单 columns 配置项       | [ColumnProps](https://ant.design/components/table-cn/#Column)[] |        |      |
+| pageTitle           | 表单页面标题              | string                                                          |        |      |
+| filters             | 表单筛选项                | [FilterItemProps](/components/filter-options)[]                 |        |      |
+| leftCreate          | 新增按钮位置              | boolean                                                         |        |
+| createIcon          | 新增按钮图标              | React.ReactNode                                                 |        |
+| downIcon            | 导出按钮图标              | React.ReactNode                                                 |        |
+| showCreate          | 是否显示新增操作          | boolean                                                         |        |      |
+| needExport          | 是否显示导出操作          | boolean                                                         |        |      |
+| needPatchDelete     | 是否显示批量删除          | boolean                                                         |        |      |
+| deleteTitle         | 删除按钮文字              | string                                                          |        |      |
+| deleteCallback      | 删除回调                  | (params: any) => void                                           |        |      |
+| needSelect          | 是否显示筛选              | boolean                                                         |        |      |
+| needRefresh         | 刷新数据标志              | boolean                                                         |        |      |
+| resetFresh          | 是否回到第一页 默认值     | boolean                                                         | false  |      |
+| createTitle         | 新增按钮文字标题          | string                                                          |        |      |
+| scroll              | 页面水平、垂直滚动        | object                                                          |        |      |
+| gap                 | search tree 间距          | number                                                          |        |      |
+| orderingKey         | 排序 key，默认值 ordering | string                                                          |        |      |
+| onTreeSelect        | tree 节点选择回调         | (params: any) => void                                           |        |      |
+| defaultCondtions    | 默认搜索条件              | {[key: string]: string}                                         |        |      |
+| getTableList        | 获取表单数据接口          | (params: any) => void                                           |        |      |
+| createCallback      | 新增操作回调              | (params: any) => void                                           |        |      |
+| selectCallback      | 列表复选框 选择回调       | (params: any) => void                                           |        |      |
+| getSortFilterParams | 排序、过滤字段处理        | (params: any) => object                                         |        |      |
+| exportCallback      | 导出回调                  | (params: any) => void                                           |        |      |
 
 ### 有组织树时配置
 
