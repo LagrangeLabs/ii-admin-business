@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 import { RadioDatePicker } from 'ii-admin-business';
 
 export default () => {
-  const radioOption = [
+  const radioOptions = [
     { key: '2天内', value: '1' },
     { key: '10天内', value: '9' },
   ];
@@ -51,7 +51,7 @@ export default () => {
       </div>
       <br />
       <RadioDatePicker
-        radioOption={radioOption}
+        radioOptions={radioOptions}
         changeRangeDate={changeRange2Date}
       />
     </div>
@@ -61,19 +61,21 @@ export default () => {
 
 ### RadioDatePicker 组件 入参
 
-| 属性              | 说明                        | 类型                           | 默认值 | 版本 |
-| ----------------- | --------------------------- | ------------------------------ | ------ | ---- |
-| pickerStyle       | pickerStyle picker 样式     | CSSProperties                  |        |      |
-| radioStyle        | radioGroup 样式             | CSSProperties                  |        |      |
-| radioValue        | radioValue                  | string                         |        |      |
-| handleRadioChange | radio 值修改回调            | (params: any) => void          |        |      |
-| format            | format 时间格式             | string                         |        |      |
-| disabledDate      | disabledDate 不可选时间     | any                            |        |      |
-| startTime         | startTime 开始时间          | string                         |        |      |
-| endTime           | endTime 结束时间            | string                         |        |      |
-| radioRight        | radioRight 选项是否放置右边 | boolean                        | false  |      |
-| allowClear        | datepicker 是否允许清除     | boolean                        | false  |      |
-| radioOption       | radioOption radio 选项      | [{key: string, value: string}] |        |      |
-| changeRangeDate   | 日期选择回调                | (params: any) => void          |        |      |
+| 属性              | 说明                        | 类型                               | 默认值                                                                 | 是否必选 | 版本 |
+| ----------------- | --------------------------- | ---------------------------------- | ---------------------------------------------------------------------- | -------- | ---- |
+| pickerStyle       | pickerStyle picker 样式     | CSSProperties                      |                                                                        | 否       |      |
+| radioStyle        | radioGroup 样式             | CSSProperties                      |                                                                        | 否       |      |
+| radioValue        | 快捷时间选项的值            | string                             |                                                                        | 否       |      |
+| format            | format 时间格式             | string                             | YYYY-MM-DD                                                             | 否       |      |
+| disabledDate      | disabledDate 不可选时间     | (currentDate: moment) => boolean   |                                                                        | 否       |      |
+| startTime         | startTime 开始时间          | string                             |                                                                        | 否       |      |
+| endTime           | endTime 结束时间            | string                             |                                                                        | 否       |      |
+| radioRight        | radioRight 选项是否放置右边 | boolean                            | false                                                                  | 否       |      |
+| allowClear        | datepicker 是否允许清除     | boolean                            | false                                                                  | 否       |      |
+| radioOptions      | radioOptions radio 选项     | {[key: string\]: string\|number}[] | [{ key: '最近 7 天', value: '6' }, { key: '最近 30 天', value: '29' }] | 否       |      |
+| optionKey         | radio.option 的 key 字段    | string                             | key                                                                    | 否       |      |
+| optionValue       | radio.option 的 value 字段  | string                             | value                                                                  | 否       |      |
+| handleRadioChange | radio 值修改回调            | (params: any) => void              |                                                                        | 否       |      |
+| changeRangeDate   | 日期选择回调                | (params: any) => void              |                                                                        | 否       |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
