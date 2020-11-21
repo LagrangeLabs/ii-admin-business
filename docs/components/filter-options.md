@@ -33,40 +33,40 @@ export default () => {
 
 ### FilterOptions 入参
 
-| 属性             | 说明                     | 类型                               | 默认值 | 版本 |
-| ---------------- | ------------------------ | ---------------------------------- | ------ | ---- |
-| filters          | FilterItemProps[]        | 搜索条件数组配置 FilterItemProps[] |        |      |
-| setFilterOpts    | (params: object) => void | 搜索条件改变回调 入参：当前改变值  |        |      |
-| defaultCondtions | {[key: string]: string}  | 各个搜索条件默认值                 |        |      |
+| 属性             | 说明                     | 类型                                                             | 默认值 | 是否必传 | 版本 |
+| ---------------- | ------------------------ | ---------------------------------------------------------------- | ------ | -------- | ---- |
+| filters          | FilterItemProps[]        | 搜索条件数组配置 [FilterItemProps](/components/filter-options)[] |        | 是       |      |
+| setFilterOpts    | (params: object) => void | 搜索条件改变回调 入参：当前改变值                                |        | 否       |      |
+| defaultCondtions | {[key: string]: string}  | 各个搜索条件默认值                                               |        | 否       |      |
 
-#### FilterItemProps
+### FilterItemProps
 
-| 属性        | 说明                               | 类型                               | 默认值 | 版本 |
-| ----------- | ---------------------------------- | ---------------------------------- | ------ | ---- |
-| type        | 筛选项类型                         | FilterType                         |        |      |
-| placeholder | 占位符                             | string                             |        |      |
-| filter      | 筛选项字段：可以是字符、字符数组   | string \| string[]                 |        |      |
-| filterType  | 筛选项字段最终要拼装的数据格式类型 | 'string' \| 'array'                |        |      |
-| format      | 日期格式化                         | Date                               |        |      |
-| options     | 选择项数组                         | OptionProps & CascaderDataProps [] |        |      |
-| width       | 宽度                               | number \| string                   |        |      |
-| mode        | selector 单选还是多选              | "multiple" \| "tags"               |        |      |
-| className   | 类名                               | string                             |        |      |
-| extraProps  | 额外配置条件                       | SelectProps                        |        |      |
+| 属性        | 说明                               | 类型                                                                                                   | 默认值     | 是否必传 | 版本 |
+| ----------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------ | ---------- | -------- | ---- |
+| type        | 筛选项类型                         | FilterType: 'search'\| 'input'\| 'select'\| 'datepicker'\| 'rangepicker'\| 'cascader'\| 'inputNumber'; |            | 否       |      |
+| placeholder | 占位符                             | string                                                                                                 |            | 否       |      |
+| filter      | 筛选项字段：可以是字符、字符数组   | string \| string[]                                                                                     |            | 是       |      |
+| filterType  | 筛选项字段最终要拼装的数据格式类型 | 'string' \| 'array'                                                                                    |            | 否       |      |
+| format      | 日期格式化                         | Date                                                                                                   | YYYY-MM-DD | 否       |      |
+| options     | 选择项数组                         | [OptionProps & CascaderDataProps](/components/filter-options) []                                       |            | 否       |      |
+| width       | 宽度                               | number \| string                                                                                       |            | 否       |      |
+| mode        | selector 单选还是多选              | "multiple" \| "tags"                                                                                   |            | 否       |      |
+| className   | 类名                               | string                                                                                                 |            | 否       |      |
+| extraProps  | 额外配置条件                       | [SelectProps](https://ant.design/components/select-cn/#Select-props)                                   |            | 否       |      |
 
-#### OptionProps
+### OptionProps
 
-| 属性  | 说明     | 类型          | 默认值 | 版本 |
-| ----- | -------- | ------------- | ------ | ---- |
-| key   | 展示字段 | string        |        |      |
-| value |          | string\number |        |      |
+| 属性  | 说明     | 类型          | 默认值 | 是否必传 | 版本 |
+| ----- | -------- | ------------- | ------ | -------- | ---- |
+| key   | 展示字段 | string        |        | 是       |      |
+| value |          | string\number |        | 是       |      |
 
-#### CascaderDataProps
+### CascaderDataProps
 
-| 属性     | 说明     | 类型                | 默认值 | 版本 |
-| -------- | -------- | ------------------- | ------ | ---- |
-| label    | 展示字段 | React.ReactNode     |        |      |
-| value    |          | string\number       |        |      |
-| children |          | CascaderDataProps[] |        |      |
+| 属性     | 说明     | 类型                | 是否必传 | 默认值 | 版本 |
+| -------- | -------- | ------------------- | -------- | ------ | ---- |
+| label    | 展示字段 | React.ReactNode     |          | 是     |      |
+| value    |          | string\number       |          | 是     |      |
+| children |          | CascaderDataProps[] |          | 否     |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
