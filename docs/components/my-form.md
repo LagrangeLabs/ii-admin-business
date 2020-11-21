@@ -1,5 +1,5 @@
 ---
-title: MyForm form表单
+title: IForm form表单
 ---
 
 # form 表单 常用封装
@@ -8,8 +8,24 @@ Demo:
 
 ```tsx
 import React from 'react';
-import { MyForm } from 'ii-admin-business';
+import { IForm } from 'ii-admin-business';
 import { Form, Button, Row, Col } from 'antd';
+
+const treeData = [
+  {
+    title: '大部门1',
+    id: '0-1',
+    child: [
+      { title: '小部门1', id: '0-1-0-0' },
+      { title: '小部门2', id: '0-1-0-1' },
+      { title: '小部门3', id: '0-1-0-2' },
+    ],
+  },
+  {
+    title: '大部门2',
+    id: '0-2',
+  },
+];
 
 const DEMO_FORM = [
   {
@@ -104,6 +120,15 @@ const DEMO_FORM = [
     name: 'number',
   },
   {
+    type: 'selectTree',
+    label: '下拉组织树',
+    name: 'selectTree',
+    treeData,
+    titleField: 'title',
+    keyField: 'id',
+    childrenField: 'child',
+  },
+  {
     type: 'upload',
     label: '上传附件',
     name: 'upload',
@@ -116,16 +141,29 @@ const DEMO_FORM = [
 
 export default () => {
   const [form] = Form.useForm();
+  const getFormValues = () => {
+    form
+      .validateFields()
+      .then((values: any) => {
+        console.log(values, 'sdfsdf');
+      })
+      .catch(_info => {
+        // console.log(info, 'sdfsfsdf');
+      });
+  };
+
   return (
     <div>
-      <MyForm
+      <IForm
         formItemLayout={{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
         form={form}
         list={DEMO_FORM}
       />
       <Row>
         <Col offset={6}>
-          <Button type="primary">提交</Button>
+          <Button type="primary" onClick={getFormValues}>
+            提交
+          </Button>
           <Button style={{ marginLeft: '8px' }}>取消</Button>
         </Col>
       </Row>
@@ -134,76 +172,103 @@ export default () => {
 };
 ```
 
-<!-- <API src='../../src/MyForm/V4/index.tsx'></API> -->
+<!-- <API src='../../src/IForm/V4/index.tsx'></API> -->
 
 ### From props 说明
 
-| 属性           | 说明                       | 类型                                                         | 默认值 | 版本 |
-| -------------- | -------------------------- | ------------------------------------------------------------ | ------ | ---- |
-| list           | list form 各个 item 配置   | (FormItem & SearchProps)[]                                   |        |      |
-| form           | form 表单实例              | FormInstance                                                 |        |      |
-| formItemLayout | form 布局配置              | { labelCol: { span: number }; wrapperCol: { span: number } } |        |      |
-| initialValues  |                            | object                                                       |        |      |
-| showCol        | item 一行是否展示多个 item | boolean                                                      |        |      |
+| 属性           | 说明                       | 类型                                                                                                                                       | 默认值 | 是否必传 | 版本 |
+| -------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------ | -------- | ---- |
+| list           | list form 各个 item 配置   | ([FormItem](/components/my-form) & [SearchProps](https://lagrangelabs.github.io/ii-admin-base/#/ii-admin-base/components/select-search))[] |        | 是       |      |
+| form           | form 表单实例              | [FormInstance](https://ant.design/components/form-cn/#FormInstance)                                                                        |        | 否       |      |
+| formItemLayout | form 布局配置              | { labelCol: { span: number }; wrapperCol: { span: number } }                                                                               |        | 否       |      |
+| initialValues  |                            | object                                                                                                                                     |        | 否       |      |
+| showCol        | item 一行是否展示多个 item | boolean                                                                                                                                    | false  | 否       |      |
 
 ### FormItem 类型说明
 
-| 属性        | 说明                                 | 类型                                                                                                                                                                                                                                                              | 默认值 | 版本 |
-| ----------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ---- |
-| type        | item 类型                            | 'text' 文本展示 \| 'phone' 录入验证码\| 'select' 单选下拉框\| 'multiselect' 多选下拉框\| 'selectSearch' 搜索下拉框\| 'upload' 文件上传\| 'richtext' 富文本\| 'input' 文本录入框\| 'checkbox' 多选\| 'number' 数字录入框\| 'textarea' 多行文本\| 'date' 时间选择器 | 必选   |
-| inputType   | input 类型 password、text、file 等   | string                                                                                                                                                                                                                                                            |        |      |
-| itemStyle   | item style                           | CSSProperties                                                                                                                                                                                                                                                     |        |      |
-| label       | label formitem label 文案            | React.ReactNode \| string                                                                                                                                                                                                                                         |        |      |
-| name        | name 提交值的 key                    | string                                                                                                                                                                                                                                                            |        |      |
-| placeholder | placeholder                          | string                                                                                                                                                                                                                                                            |        |      |
-| option      | option select 等的选项               | { key: string; value: string }[]                                                                                                                                                                                                                                  |        |      |
-| rules       | rules 校验规则                       | any[]                                                                                                                                                                                                                                                             |        |      |
-| showSearch  | 是否可以搜索                         | boolean                                                                                                                                                                                                                                                           |        |      |
-| allowClear  | allowClear 是否允许清楚已选项        | boolean                                                                                                                                                                                                                                                           |        |      |
-| hidden      | 是否隐藏字段（依然会收集和校验字段） | boolean                                                                                                                                                                                                                                                           |        |      |
-| span        | form item col 占几部分               | number                                                                                                                                                                                                                                                            |        |      |
+| 属性        | 说明                                 | 类型                                       | 默认值 | 是否必选 | 版本 |
+| ----------- | ------------------------------------ | ------------------------------------------ | ------ | -------- | ---- |
+| type        | item 类型                            | 详见 type 分类说明                         |        | 是       |      |
+| inputType   | input 类型 password、text、file 等   | string                                     |        | 否       |      |
+| itemStyle   | item style                           | CSSProperties                              |        | 否       |      |
+| label       | label formitem label 文案            | React.ReactNode \| string                  |        | 否       |      |
+| name        | name 提交值的 key                    | string                                     |        | 否       |      |
+| placeholder | placeholder                          | string                                     |        | 否       |      |
+| option      | option select 等的选项               | { key: string; value: string \| number }[] |        | 否       |      |
+| rules       | rules 校验规则                       | any[]                                      |        | 否       |      |
+| showSearch  | 是否可以搜索                         | boolean                                    | false  | 否       |      |
+| allowClear  | allowClear 是否允许清楚已选项        | boolean                                    | false  | 否       |      |
+| hidden      | 是否隐藏字段（依然会收集和校验字段） | boolean                                    | false  | 否       |      |
+| span        | form item col 占几部分               | number                                     |        | 否       |      |
+
+#### type 分类
+
+| 属性         | 说明         |
+| ------------ | ------------ |
+| text         | 文本展示     |
+| phone        | 录入验证码   |
+| select       | 单选下拉框   |
+| multiselect  | 多选下拉框   |
+| selectTree   | 组织树下拉框 |
+| selectSearch | 搜索下拉框   |
+| upload       | 文件上传     |
+| richtext     | 富文本       |
+| input        | 文本录入框   |
+| checkbox     | 多选         |
+| number       | 数字录入框   |
+| textarea     | 多行文本     |
+| date         | 时间选择器   |
 
 #### type 为 text
 
-| 属性  | 说明                          | 类型   | 默认值 | 版本 |
-| ----- | ----------------------------- | ------ | ------ | ---- |
-| value | value type 为 text 时的展示值 | string |        |      |
+| 属性  | 说明                          | 类型   | 默认值 | 是否必传 | 版本 |
+| ----- | ----------------------------- | ------ | ------ | -------- | ---- |
+| value | value type 为 text 时的展示值 | string |        | 是       |      |
 
 #### type 为 upload
 
-| 属性     | 说明                                | 类型               | 默认值 | 版本 |
-| -------- | ----------------------------------- | ------------------ | ------ | ---- |
-| describe | describe type 为 upload 的描述文案  | string \| string[] |        |      |
-| extra    | extra type 为 upload 的额外描述文案 | string \| string[] |        |      |
+| 属性     | 说明                                | 类型                              | 默认值 | 是否必传 | 版本 |
+| -------- | ----------------------------------- | --------------------------------- | ------ | -------- | ---- |
+| describe | describe type 为 upload 的描述文案  | string \| (string \| ReactNode)[] |        | 否       |      |
+| extra    | extra type 为 upload 的额外描述文案 | string \| (string \| ReactNode)[] |        | 否       |      |
 
 #### type 为 richtext
 
-| 属性        | 说明                     | 类型                     | 默认值                                                         | 版本 |
-| ----------- | ------------------------ | ------------------------ | -------------------------------------------------------------- | ---- |
-| tinymceSrc  | tinymce js 文件地址      | string                   | https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js |      |
-| uploadImage | uploadImage 上传图片方法 | (params: any) => Promise |                                                                |      |
+| 属性        | 说明                     | 类型                          | 默认值                                                         | 是否必传 | 版本 |
+| ----------- | ------------------------ | ----------------------------- | -------------------------------------------------------------- | -------- | ---- |
+| tinymceSrc  | tinymce js 文件地址      | string                        | https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js | 否       |      |
+| uploadImage | uploadImage 上传图片方法 | (params: FormData) => Promise |                                                                | 否       |      |
 
 #### type 为 phone
 
-| 属性          | 说明                         | 类型          | 默认值 | 版本 |
-| ------------- | ---------------------------- | ------------- | ------ | ---- |
-| getVerifyCode | getVerifyCode 获取验证码方法 | () => void    |        |      |
-| checkPhone    | checkPhone 校验手机号方法    | () => boolean |        |      |
+| 属性          | 说明                         | 类型          | 默认值 | 是否必传 | 版本 |
+| ------------- | ---------------------------- | ------------- | ------ | -------- | ---- |
+| getVerifyCode | getVerifyCode 获取验证码方法 | () => void    |        | 是       |      |
+| checkPhone    | checkPhone 校验手机号方法    | () => boolean |        | 否       |      |
 
 #### type 为 date
 
-| 属性         | 说明                            | 类型                          | 默认值       | 版本 |
-| ------------ | ------------------------------- | ----------------------------- | ------------ | ---- |
-| dateFormat   | dateFormat 时间选择器格式       | string                        | 'YYYY/MM/DD' |      |
-| showTime     | showTime 时间选择器是否可以时间 | boolean                       | false        |      |
-| disabledDate | disabledDate 不可选时间         | (currentDate: any) => boolean |              |      |
+| 属性         | 说明                            | 类型                          | 默认值     | 是否必传 | 版本 |
+| ------------ | ------------------------------- | ----------------------------- | ---------- | -------- | ---- |
+| dateFormat   | dateFormat 时间选择器格式       | string                        | YYYY-MM-DD | 否       |      |
+| showTime     | showTime 时间选择器是否可以时间 | boolean                       | false      | 否       |      |
+| disabledDate | disabledDate 不可选时间         | (currentDate: any) => boolean |            | 否       |      |
+
+#### type 为 selectTree
+
+| 属性          | 说明                     | 类型   | 默认值   | 是否必传 | 版本 |
+| ------------- | ------------------------ | ------ | -------- | -------- | ---- |
+| treeData      | 树结构数据               | any    |          | 是       |      |
+| titleField    | 需要加工的 title 字段    | string | name     | 否       |      |
+| keyField      | 需要加工的 key 字段      | string | id       | 否       |      |
+| childrenField | 需要加工的 children 字段 | string | children | 否       |      |
 
 #### 表单项有联动
 
-| 属性         | 说明            | 类型                   | 默认值 | 版本 |
-| ------------ | --------------- | ---------------------- | ------ | ---- |
-| childName    | 关联选项        | string                 |        |      |
-| parentName   | 关联选项 父级   | string                 |        |      |
-| originOption | 关联选项 子选项 | { [T: string]: any[] } |        |      |
+| 属性         | 说明            | 类型                   | 默认值 | 是否必传 | 版本 |
+| ------------ | --------------- | ---------------------- | ------ | -------- | ---- |
+| childName    | 关联选项        | string                 |        | 是       |      |
+| parentName   | 关联选项 父级   | string                 |        | 是       |      |
+| originOption | 关联选项 子选项 | { [T: string]: any[] } |        | 是       |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle

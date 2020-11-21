@@ -17,38 +17,17 @@ import {
   Row,
   Col,
 } from 'antd';
+import { InputVerify, SelectSearch, IUpload, ISelectTree } from 'ii-admin-base';
 import { FormInstance } from 'antd/lib/form';
-
-import { InputVerify, SelectSearch, MyUpload } from 'ii-admin-base';
-
 import { SearchProps } from 'ii-admin-base/dist/SelectSearch';
-// import InputVerify from '../../InputVerify';
-// import SelectSearch, { SearchProps } from '../../SelectSearch';
-// import MyUpload from '../../MyUpload';
+
 import RichText from '../../RichText';
+import { FormItem } from './interface';
+
+import { getLayoutItem, handleExtraProps } from './util';
 
 const { Option } = Select;
 const { TextArea } = Input;
-
-import { FormItem } from './interface';
-// 栅格布局时计算每个item的layout
-const getLayoutItem = (formItemLayout: any, preSpan: number, span: number) => {
-  const formLayoutCopy = JSON.parse(JSON.stringify(formItemLayout));
-  // 连续两个都为12 的选项，增加offset
-  if (preSpan === 12 && span === 12) {
-    formLayoutCopy.labelCol.offset = 2;
-    preSpan = 0;
-  } else {
-    preSpan = span || 0;
-  }
-  if (span === 24) {
-    formLayoutCopy.labelCol.span = Math.ceil(
-      (formLayoutCopy.labelCol.span * 12) / span,
-    );
-    formLayoutCopy.wrapperCol.span = 24 - formLayoutCopy.labelCol.span;
-  }
-  return [formLayoutCopy, preSpan];
-};
 
 /**
  * form 配置信息
@@ -91,14 +70,22 @@ function getFormItem(item: FormItem & SearchProps) {
     uploadImage,
     showTime,
     tinymceSrc,
+
+    /** 树结构数据 */
+    treeData = [],
+    /** 需要加工的title字段 */
+    titleField = 'name',
+    /** 需要加工的key字段 */
+    keyField = 'id',
+    /** 需要加工的children字段 */
+    childrenField = 'children',
     ...rest
   } = item;
   let { placeholder } = item;
   if (!placeholder) {
+    placeholder = `请输入${label}`;
     if (type === 'select' || type === 'multiselect') {
       placeholder = `请选择${label}`;
-    } else {
-      placeholder = `请输入${label}`;
     }
   }
 
@@ -112,7 +99,7 @@ function getFormItem(item: FormItem & SearchProps) {
     case 'date':
       return (
         <DatePicker
-          format={dateFormat || 'YYYY/MM/DD'}
+          format={dateFormat || 'YYYY-MM-DD'}
           style={{ width: '100%' }}
           showTime={showTime}
           disabledDate={disabledDate}
@@ -124,11 +111,20 @@ function getFormItem(item: FormItem & SearchProps) {
       );
     case 'upload':
       return (
-        <MyUpload
+        <IUpload
           style={itemStyle}
           extra={extra}
           describe={describe}
           {...rest}
+        />
+      );
+    case 'selectTree':
+      return (
+        <ISelectTree
+          treeData={treeData}
+          titleField={titleField}
+          keyField={keyField}
+          childrenField={childrenField}
         />
       );
     case 'richtext':
@@ -157,7 +153,6 @@ function getFormItem(item: FormItem & SearchProps) {
       return (
         <Checkbox.Group>
           {option &&
-            // eslint-disable-next-line no-shadow
             option.map((item: any) => {
               return (
                 <Checkbox key={item.value || item} value={item.value || item}>
@@ -214,42 +209,49 @@ function MyFormV4(props: FormProps) {
   if (!formResult) {
     formResult = formG;
   }
+
   // 对于多选中含有以上均无等选项特殊处理
+  const handleMultiValue = (value: any[], name: string) => {
+    const index = value.indexOf('以上均无');
+    if (index === 0 && value.length > 1) {
+      value.shift();
+      formResult?.setFieldsValue({
+        [name]: value,
+      });
+    } else if (index > 0) {
+      formResult?.setFieldsValue({
+        [name]: ['以上均无'],
+      });
+    }
+  };
+  // 级联选项处理
+  const handleRelatedValue = (value: any, name: string, childName: string) => {
+    setRelatedValue({
+      ...relatedValue,
+      [name]: value,
+    });
+    formResult?.setFieldsValue({
+      [childName]: undefined,
+    });
+  };
+
   const handleValue = (values: any) => {
     // eslint-disable-next-line no-plusplus
-    for (let index = 0; index < list.length; index++) {
+    for (let index = 0, len = list.length; index < len; index++) {
       const element = list[index];
       const { type, name, childName } = element;
       const value = values[name];
       if (type === 'multiselect' && value) {
-        // eslint-disable-next-line no-shadow
-        const index = value.indexOf('以上均无');
-        if (index === 0 && value.length > 1) {
-          value.shift();
-          formResult?.setFieldsValue({
-            [name]: value,
-          });
-        } else if (index > 0) {
-          formResult?.setFieldsValue({
-            [name]: ['以上均无'],
-          });
-        }
-        if (index !== -1) {
-          break;
-        }
+        // 处理有 ‘以上均无’的复选情况
+        handleMultiValue(value, name);
       }
-      // 关联选型  父级值发生变化
       if (childName && value) {
-        setRelatedValue({
-          ...relatedValue,
-          [name]: value,
-        });
-        formResult?.setFieldsValue({
-          [childName]: undefined,
-        });
+        // 关联选型  父级值发生变化
+        handleRelatedValue(value, name, childName);
       }
     }
   };
+
   return (
     <div>
       <Form
@@ -260,12 +262,15 @@ function MyFormV4(props: FormProps) {
       >
         <Row>
           {list.map((item: FormItem) => {
+            // 级联选项处理
             if (item.parentName) {
               // eslint-disable-next-line no-param-reassign
               item.option = relatedValue[item.parentName]
                 ? item.originOption![relatedValue[item.parentName]]
                 : [];
             }
+
+            // item 布局处理
             const { name, label, rules, hidden = false } = item;
             const span = item.span === 24 || !showCol ? 24 : 12;
             let formLayoutCopy;
@@ -276,26 +281,21 @@ function MyFormV4(props: FormProps) {
                 span,
               );
             }
-            let extraProps: any = {};
-            if (item.type === 'upload') {
-              extraProps.valuePropName = 'fileList';
-              extraProps.getValueFromEvent = (e: any) => {
-                if (Array.isArray(e)) {
-                  return e;
-                }
-                return e && e.fileList;
-              };
-            }
+
+            // handleExtraProps 处理需额外添加属性的情况
+            let initProps: any = {};
+            const extraProps = handleExtraProps(initProps, item.type);
+
             return (
               <Col span={span} key={name}>
                 <Form.Item
                   style={{ width: '100%' }}
-                  {...formLayoutCopy}
-                  {...extraProps}
                   label={label}
                   name={name}
                   rules={rules}
                   hidden={hidden}
+                  {...formLayoutCopy}
+                  {...extraProps}
                 >
                   {getFormItem(item)}
                 </Form.Item>
