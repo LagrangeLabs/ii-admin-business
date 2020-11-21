@@ -9,7 +9,7 @@ export default {
       children: [
         'components/voice',
         'components/rich-text',
-        'components/my-form',
+        'components/iform',
         'components/scroll-pdf',
         'components/page-table',
       ],
