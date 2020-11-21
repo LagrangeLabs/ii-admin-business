@@ -7,13 +7,13 @@ interface RichText {
   /** tinymce js文件地址 默认值为https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js */
   tinymceSrc?: string;
   /** richtext值 */
-  value?: string;
+  value: string;
   /** formData上传文件时key值，默认值为file */
   fileKey?: string;
   /** 富文本高度 默认值为500 */
   height?: number;
   /** 富文本内容改变回调  */
-  onChange?: (params: string) => void;
+  onChange: (params: string) => void;
   /** 图片上传成功回调函数，用于解析返回结果中的图片地址，默认值为(res) => res.data.file_url */
   callBack?: (params: any) => void;
   /** 图片上传方法 */
