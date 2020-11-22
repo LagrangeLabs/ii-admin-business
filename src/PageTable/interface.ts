@@ -59,6 +59,8 @@ export interface IPageTableProps {
   showSearch?: boolean;
   /** search tree 间距 */
   gap?: number;
+  /** 排序key，默认值ordering */
+  orderingKey?: string;
   /** tree节点选择回调 */
   onTreeSelect: (params: any) => void;
 

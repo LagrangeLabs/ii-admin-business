@@ -12,6 +12,7 @@ type MarkInfo = {
   /** 第几页pdf */
   page: number;
 };
+
 type CanvasItem = { id: number; style: CSSProperties };
 
 interface ScrollPdf {
@@ -23,7 +24,7 @@ interface ScrollPdf {
   pdfFile: string;
   /** 标记信息 */
   markInfoOrigin?: MarkInfo;
-  /** 标记信息 */
+  /** 当pdf滚动展示页数发生变化时回调 */
   onChangePages?: (pages: number, curret?: number) => void;
 }
 

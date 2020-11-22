@@ -2,18 +2,24 @@ import React, { CSSProperties, Fragment, useEffect, useState } from 'react';
 import { Radio, DatePicker } from 'antd';
 import moment from 'moment';
 import { RadioChangeEvent } from 'antd/lib/radio';
+import {
+  DATE_FORMAT_DAY,
+  START_TIME,
+  END_TIME,
+  getDayFlag,
+  countDays,
+} from '@/utils/time';
+
+import { KeyValueObj } from '../interface';
 
 const { RangePicker } = DatePicker;
-
 interface propsI {
   /** pickerStyle picker 样式 */
   pickerStyle?: CSSProperties;
   /** radioGroup 样式 */
   radioStyle?: CSSProperties;
-  /** radioValue */
+  /** 快捷时间选项的值 */
   radioValue?: string;
-  /** radio 值修改回调 */
-  handleRadioChange?: (params: any) => void;
   /** format 时间格式 */
   format?: string;
   /** disabledDate 不可选时间 */
@@ -26,8 +32,14 @@ interface propsI {
   radioRight?: boolean;
   /** datepicker 是否允许清楚，默认值false */
   allowClear?: boolean;
-  /** radioOption radio选项 */
-  radioOption?: [{ key: string; value: string }];
+  /** radioOptions radio选项 */
+  radioOptions?: KeyValueObj[];
+  /** radio.option 的key字段，默认为key */
+  optionKey?: string;
+  /** radio.option 的value字段，默认为value */
+  optionValue?: string;
+  /** radio 值修改回调 */
+  handleRadioChange?: (params: any) => void;
   /** 日期选择回调 */
   changeRangeDate?: (params: any) => void;
 }
@@ -36,21 +48,6 @@ const DEFAULT_OPTION = [
   { key: '最近7天', value: '6' },
   { key: '最近30天', value: '29' },
 ];
-const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
-const DATE_FORMAT_DAY = 'YYYY-MM-DD';
-const START_TIME = ' 00:00:00';
-const END_TIME = ' 23:59:59';
-
-const getDayFlag = (format: string) => format.indexOf('HH:mm') === -1;
-
-const countDays = (value: number, format: string = DATE_FORMAT_DAY) => {
-  const dayFlag = getDayFlag(format);
-  const timeInfo = value > 0 ? START_TIME : END_TIME;
-  const startDay = moment()
-    .subtract(value, 'days')
-    .format(format);
-  return dayFlag ? `${startDay}${timeInfo}` : startDay;
-};
 
 export default function MonthDate(props: propsI) {
   const {
@@ -60,7 +57,9 @@ export default function MonthDate(props: propsI) {
     endTime,
     radioRight = false,
     allowClear = false,
-    radioOption = DEFAULT_OPTION,
+    radioOptions = DEFAULT_OPTION,
+    optionKey = 'key',
+    optionValue = 'value',
     format = DATE_FORMAT_DAY,
     pickerStyle,
     radioStyle,
@@ -100,6 +99,7 @@ export default function MonthDate(props: propsI) {
       });
     }
   };
+
   const updateRadio = (event: RadioChangeEvent | string) => {
     const value = typeof event === 'string' ? event : event.target.value;
     const startTime = countDays(parseInt(value));
@@ -116,21 +116,26 @@ export default function MonthDate(props: propsI) {
     }
   };
 
+  const DEFAULT_STYLE = !radioRight
+    ? { marginRight: '10px' }
+    : { marginLeft: '10px' };
+  const RADIO_PART = (
+    <Radio.Group
+      style={{ ...DEFAULT_STYLE, ...radioStyle }}
+      onChange={updateRadio}
+      value={radioValueResult}
+    >
+      {radioOptions.map((item: KeyValueObj) => (
+        <Radio.Button key={item[optionValue]} value={item[optionValue]}>
+          {item[optionKey]}
+        </Radio.Button>
+      ))}
+    </Radio.Group>
+  );
+
   return (
     <Fragment>
-      {!radioRight && (
-        <Radio.Group
-          style={{ marginRight: '10px', ...radioStyle }}
-          onChange={updateRadio}
-          value={radioValueResult}
-        >
-          {radioOption.map((item: any) => (
-            <Radio.Button key={item.value} value={item.value}>
-              {item.key}
-            </Radio.Button>
-          ))}
-        </Radio.Group>
-      )}
+      {!radioRight && RADIO_PART}
       <RangePicker
         format={format}
         style={pickerStyle}
@@ -139,19 +144,7 @@ export default function MonthDate(props: propsI) {
         value={[moment(startTimeResult), moment(endTimeResult)]}
         onChange={getTimeObj}
       />
-      {radioRight && (
-        <Radio.Group
-          style={{ marginLeft: '10px', ...radioStyle }}
-          onChange={updateRadio}
-          value={radioValueResult}
-        >
-          {radioOption.map((item: any) => (
-            <Radio.Button key={item.value} value={item.value}>
-              {item.key}
-            </Radio.Button>
-          ))}
-        </Radio.Group>
-      )}
+      {radioRight && RADIO_PART}
     </Fragment>
   );
 }

@@ -74,11 +74,21 @@ export default () => {
 
 ### ScrollPdf 无限滚动
 
-| 属性           | 说明                       | 类型     | 默认值 | 版本 |
-| -------------- | -------------------------- | -------- | ------ | ---- |
-| bgColor        | 背景色                     | string   |        |      |
-| showItem       | 一次展示页数               | number   |        |      |
-| pdfFile        | pdf 地址或者 base64 字符串 | string   |        |      |
-| markInfoOrigin | 标记信息                   | MarkInfo |        |      |
+| 属性           | 说明                              | 类型                                      | 默认值 | 是否必传 | 版本 |
+| -------------- | --------------------------------- | ----------------------------------------- | ------ | -------- | ---- |
+| bgColor        | 背景色                            | string                                    | #eee   | 否       |      |
+| showItem       | 一次展示页数                      | number                                    | 4      | 否       |      |
+| pdfFile        | pdf 地址或者 base64 字符串        | string                                    |        | 是       |      |
+| markInfoOrigin | 标记信息                          | MarkInfo                                  |        | 否       |      |
+| onChangePages  | 当 pdf 滚动展示页数发生变化时回调 | (pages: number, curret?: number) => void; |        | 否       |      |
+
+#### MarkInfo pdf 标记信息
+
+| 属性      | 说明                        | 类型     | 默认值 | 是否必传 | 版本 |
+| --------- | --------------------------- | -------- | ------ | -------- | ---- |
+| width     | 服务端计算位置时 pdf 的宽度 | number   |        | 是       |      |
+| height    | 服务端计算位置时 pdf 的高度 | number   |        | 是       |      |
+| locations | 要标记的位置信息            | number[] |        | 是       |      |
+| page      | 第几页 pdf                  | number   |        | 是       |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle

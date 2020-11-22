@@ -1,6 +1,19 @@
 import { CSSProperties } from 'react';
-import { InputType } from '@/utils/getMatch';
 
+export type InputType =
+  | 'text'
+  | 'phone'
+  | 'select'
+  | 'multiselect'
+  | 'selectSearch'
+  | 'selectTree'
+  | 'upload'
+  | 'richtext'
+  | 'input'
+  | 'checkbox'
+  | 'number'
+  | 'textarea'
+  | 'date';
 /**
  * FormItem props
  */
@@ -11,6 +24,7 @@ export interface FormItem {
   | 'select' 单选下拉框
   | 'multiselect' 多选下拉框
   | 'selectSearch' 搜索下拉框
+  | 'selectTree' 组织树下拉框
   | 'upload' 文件上传
   | 'richtext' 富文本
   | 'input' 文本录入框
@@ -35,15 +49,13 @@ export interface FormItem {
   /** placeholder */
   placeholder?: string;
   /** option select等的选项 */
-  option?: { key: string; value: string }[];
+  option?: { key: string; value: string | number }[];
   /** rules 校验规则 */
   rules?: any[];
   /** describe  type为upload的描述文案 */
   describe?: string | string[];
   /** extra type为upload的额外描述文案 */
   extra?: string | string[];
-  /** uploadImage 上传图片方法 */
-  uploadImage?: (params: any) => Promise<any>;
   /** tinymceSrc js文件地址 */
   tinymceSrc?: string;
   /** 是否可以搜索 */
@@ -60,12 +72,24 @@ export interface FormItem {
   originOption?: { [T: string]: any[] };
   /** form item col 占几部分 */
   span?: number;
+  /** showTime 时间选择器是否可以时间*/
+  showTime?: boolean;
+
+  /** 树结构数据 */
+  treeData?: any;
+  /** 需要加工的title字段 */
+  titleField?: string;
+  /** 需要加工的key字段 */
+  keyField?: string;
+  /** 需要加工的children字段 */
+  childrenField?: string;
+
   /** getVerifyCode 获取验证码方法 */
   getVerifyCode?: () => void;
   /** checkPhone 校验手机号方法 */
   checkPhone?: () => boolean;
-  /** showTime 时间选择器是否可以时间*/
-  showTime?: boolean;
+  /** uploadImage 上传图片方法 */
+  uploadImage?: (params: FormData) => Promise<any>;
   /** disabledDate 不可选时间 */
   disabledDate?: (currentDate: any) => boolean;
 }

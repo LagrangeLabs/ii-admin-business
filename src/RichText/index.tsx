@@ -13,25 +13,26 @@ interface RichText {
   /** 富文本高度 默认值为500 */
   height?: number;
   /** 富文本内容改变回调  */
-  onChange?: (params: any) => void;
-  /** 图片上传成功回调函数，用于解析返回结果中的图片地址，默认值为(res) => res.file_url */
+  onChange?: (params: string) => void;
+  /** 图片上传成功回调函数，用于解析返回结果中的图片地址，默认值为(res) => res.data.file_url */
   callBack?: (params: any) => void;
   /** 图片上传方法 */
-  uploadImage?: (params: any) => Promise<any>;
+  uploadImage?: (params: FormData) => Promise<any>;
 }
 
 const callBackDefault = (res: any) => {
   const { data } = res;
   return data.file_url;
 };
+
 const RichText = (props: RichText) => {
   const {
     value,
-    onChange,
     height = 500,
-    uploadImage,
     fileKey = 'file',
     tinymceSrc = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js',
+    onChange,
+    uploadImage,
     callBack = callBackDefault,
   } = props;
 
