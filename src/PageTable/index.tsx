@@ -38,7 +38,7 @@ const PageTable: FC<IPageTableProps> = props => {
     showSearchTree,
     searchTreeKey,
     showSearch = true,
-    createTitle,
+    createTitle = '新增',
     deleteTitle = '批量删除',
     defaultCondtions = {},
 
@@ -47,7 +47,7 @@ const PageTable: FC<IPageTableProps> = props => {
     keyField = 'id',
     childrenField = 'children',
     iconTag,
-    gap,
+    gap = 12,
     orderingKey = 'ordering',
     onTreeSelect,
     createCallback,
@@ -189,7 +189,6 @@ const PageTable: FC<IPageTableProps> = props => {
     }
   };
   const onSelect = (value: any, item: any) => {
-    console.log(item, 'sdfsdfsdfsdfsdfsfdssdfsdfsdfdssdf');
     const keyValue = {
       key: item.node.key,
       value,
