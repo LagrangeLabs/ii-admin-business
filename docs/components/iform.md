@@ -176,13 +176,14 @@ export default () => {
 
 ### From props 说明
 
-| 属性           | 说明                       | 类型                                                                                                                                     | 默认值 | 是否必传 | 版本 |
-| -------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- | ---- |
-| list           | list form 各个 item 配置   | ([FormItem](/components/iform) & [SearchProps](https://lagrangelabs.github.io/ii-admin-base/#/ii-admin-base/components/select-search))[] |        | 是       |      |
-| form           | form 表单实例              | [FormInstance](https://ant.design/components/form-cn/#FormInstance)                                                                      |        | 否       |      |
-| formItemLayout | form 布局配置              | { labelCol: { span: number }; wrapperCol: { span: number } }                                                                             |        | 否       |      |
-| initialValues  |                            | object                                                                                                                                   |        | 否       |      |
-| showCol        | item 一行是否展示多个 item | boolean                                                                                                                                  | false  | 否       |      |
+| 属性                 | 说明                       | 类型                                                                                                                                     | 默认值 | 是否必传 | 版本 |
+| -------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- | ---- |
+| list                 | list form 各个 item 配置   | ([FormItem](/components/iform) & [SearchProps](https://lagrangelabs.github.io/ii-admin-base/#/ii-admin-base/components/select-search))[] |        | 是       |      |
+| form                 | form 表单实例              | [FormInstance](https://ant.design/components/form-cn/#FormInstance)                                                                      |        | 否       |      |
+| formItemLayout       | form 布局配置              | { labelCol: { span: number }; wrapperCol: { span: number } }                                                                             |        | 否       |      |
+| initialValues        |                            | object                                                                                                                                   |        | 否       |      |
+| initialRelatedValues | 关联数据初始化值           | object                                                                                                                                   |        | 否       |      |
+| showCol              | item 一行是否展示多个 item | boolean                                                                                                                                  | false  | 否       |      |
 
 ### FormItem 类型说明
 

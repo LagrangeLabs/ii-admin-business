@@ -40,6 +40,8 @@ export interface FormProps {
   /** form 布局配置  */
   formItemLayout?: { labelCol: { span: number }; wrapperCol: { span: number } };
   initialValues?: object;
+  /** 关联数据初始化值 */
+  initialRelatedValues?: object;
   /** item 一行是否展示多个item */
   showCol?: boolean;
 }
@@ -200,10 +202,13 @@ function MyFormV4(props: FormProps) {
     form: formProps,
     formItemLayout = formItemLayoutDefault,
     initialValues = {},
+    initialRelatedValues,
     showCol = false,
   } = props;
   const initObj: any = {};
-  const [relatedValue, setRelatedValue] = useState(initObj);
+  const [relatedValue, setRelatedValue] = useState(
+    initialRelatedValues || initObj,
+  );
   const [formG] = Form.useForm();
   let formResult = formProps;
   if (!formResult) {
