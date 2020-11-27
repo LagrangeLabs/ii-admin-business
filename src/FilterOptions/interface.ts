@@ -25,6 +25,8 @@ export type FilterOptionProps = OptionProps | CascaderDataProps;
 export interface FilterItemProps {
   /** 筛选项类型 */
   type?: FilterType;
+  /** 是否允许清除, 默认值为true */
+  allowClear?: boolean;
   /** 占位符 */
   placeholder?: string;
   /** 筛选项字段：可以是字符、字符数组 */
