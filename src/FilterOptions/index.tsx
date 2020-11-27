@@ -93,11 +93,13 @@ const FilterOptions: FC<FilterOptionProps> = props => {
     // const cls = cx(styles.ii-ui-business-filter, item.className);
     const extraProps = item.extraProps ? item.extraProps : {};
     const filter: string = item.filter as string;
+    const { allowClear = true } = item;
     switch (item.type) {
       case 'input':
         return (
           <Input
             key={`filter-${index}`}
+            allowClear={allowClear}
             className={`${item.className} ii-ui-business-filter`}
             style={{ width: item.width || 150, marginBottom: '20px' }}
             placeholder={item.placeholder}
@@ -125,6 +127,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
         return (
           <Search
             key={`filter-${index}`}
+            allowClear={allowClear}
             className={`${item.className} ii-ui-business-filter`}
             style={{ width: item.width || 150, marginBottom: '20px' }}
             placeholder={item.placeholder}
@@ -139,7 +142,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
         return (
           <Select
             mode={item.mode}
-            allowClear
+            allowClear={allowClear}
             key={`filter-${index}`}
             className={`${item.className} ii-ui-business-filter`}
             style={{ width: item.width || 150, marginBottom: '20px' }}

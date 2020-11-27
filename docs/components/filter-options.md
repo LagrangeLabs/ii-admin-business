@@ -44,6 +44,7 @@ export default () => {
 | 属性        | 说明                               | 类型                                                                                                   | 默认值     | 是否必传 | 版本 |
 | ----------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------ | ---------- | -------- | ---- |
 | type        | 筛选项类型                         | FilterType: 'search'\| 'input'\| 'select'\| 'datepicker'\| 'rangepicker'\| 'cascader'\| 'inputNumber'; |            | 否       |      |
+| allowClear  | 是否允许清除                       | boolean                                                                                                | true       | 否       |      |
 | placeholder | 占位符                             | string                                                                                                 |            | 否       |      |
 | filter      | 筛选项字段：可以是字符、字符数组   | string \| string[]                                                                                     |            | 是       |      |
 | filterType  | 筛选项字段最终要拼装的数据格式类型 | 'string' \| 'array'                                                                                    |            | 否       |      |
