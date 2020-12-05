@@ -77,10 +77,13 @@ export default () => {
 | 属性           | 说明                              | 类型                                      | 默认值 | 是否必传 | 版本 |
 | -------------- | --------------------------------- | ----------------------------------------- | ------ | -------- | ---- |
 | bgColor        | 背景色                            | string                                    | #eee   | 否       |      |
+| markStyle      | markinfo style                    | CSSProperties                             |        | 否       |      |
 | showItem       | 一次展示页数                      | number                                    | 4      | 否       |      |
 | pdfFile        | pdf 地址或者 base64 字符串        | string                                    |        | 是       |      |
 | markInfoOrigin | 标记信息                          | MarkInfo                                  |        | 否       |      |
 | onChangePages  | 当 pdf 滚动展示页数发生变化时回调 | (pages: number, curret?: number) => void; |        | 否       |      |
+| onScroll       | 当 pdf 滚动展示页数发生变化时回调 | (params: any) => void                     |        | 否       |      |
+| getScaleInfo   | 获取 canvas scaleInfo 信息        | (params: any) => void                     |        | 否       |      |
 
 #### MarkInfo pdf 标记信息
 

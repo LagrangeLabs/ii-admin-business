@@ -18,6 +18,8 @@ type CanvasItem = { id: number; style: CSSProperties };
 interface ScrollPdf {
   /** 背景色 */
   bgColor?: string;
+  /** markinfo style */
+  markStyle?: CSSProperties;
   /** 一次展示页数 */
   showItem?: number;
   /** pdf 地址或者base64字符串 */
@@ -25,16 +27,23 @@ interface ScrollPdf {
   /** 标记信息 */
   markInfoOrigin?: MarkInfo;
   /** 当pdf滚动展示页数发生变化时回调 */
+  onScroll?: (params: any) => void;
+  /** 获取canvas scaleInfo信息 */
+  getScaleInfo?: (params: any) => void;
+  /** 当pdf滚动展示页数发生变化时回调 */
   onChangePages?: (pages: number, curret?: number) => void;
 }
 
 export default function ScrollPdf(props: ScrollPdf) {
   const {
+    markStyle,
     bgColor = '#eee',
     showItem = 4,
     pdfFile,
     markInfoOrigin,
     onChangePages,
+    getScaleInfo,
+    onScroll,
   } = props;
   const initRef: any = null;
   const initObj: any = {};
@@ -203,6 +212,7 @@ export default function ScrollPdf(props: ScrollPdf) {
         height: resultHeight,
       };
       setScaleInfo(scaleInfo);
+      getScaleInfo && getScaleInfo(scaleInfo);
       return scaleInfo;
     });
   };
@@ -231,6 +241,7 @@ export default function ScrollPdf(props: ScrollPdf) {
   const handleScroll = (e: any) => {
     const { scrollTop } = e.currentTarget;
     const { height } = scaleInfo;
+    onScroll && onScroll(e);
     if (height) {
       const newPage = Math.ceil(scrollTop / height) + 1;
       if (newPage !== current) {
@@ -279,6 +290,7 @@ export default function ScrollPdf(props: ScrollPdf) {
             height: markinfo.height + 'px',
             zIndex: markinfo.zindex,
             opacity: markinfo.opacity,
+            ...markStyle,
           }}
         ></div>
 
