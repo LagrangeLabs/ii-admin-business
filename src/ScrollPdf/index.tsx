@@ -109,7 +109,7 @@ export default function ScrollPdf(props: ScrollPdf) {
       locations = [],
       width: originWidth,
       height: originHeight,
-      page = 0,
+      page = 1,
     } = marnInfo;
 
     const { width, height } = scaleInfo;
@@ -122,7 +122,7 @@ export default function ScrollPdf(props: ScrollPdf) {
       heightM = (locations[5] - locations[1]) * unitH;
       const markInfo = {
         left: locations[0] * unitW,
-        top: top + page * (height + 10),
+        top: top + (page - 1) * (height + 10),
         width: (locations[2] - locations[0]) * unitW,
         height: heightM,
         zindex: 1,
@@ -139,7 +139,7 @@ export default function ScrollPdf(props: ScrollPdf) {
       // markinfo 垂直居中
       const alignHeight = top + heightM / 2 - height / 2;
       const resultHeight = alignHeight > 0 ? alignHeight : 0;
-      const scrollTop = page * (height + 10) + resultHeight;
+      const scrollTop = (page - 1) * (height + 10) + resultHeight;
       canvasContainer.current.scrollTop = scrollTop;
     }
   };
