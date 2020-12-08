@@ -8,6 +8,7 @@ import { TablePaginationConfig } from 'antd/lib/table';
 
 import { IPageTableProps } from './interface';
 import FilterOptions from '../FilterOptions';
+import IPageHeader from '../IPageHeader';
 
 import './index.less';
 
@@ -223,7 +224,7 @@ const PageTable: FC<IPageTableProps> = props => {
         </div>
       )}
       <div className="ii-ui-business-pageTable">
-        {pageTitle && <h3 className="page-table-title">{pageTitle}</h3>}
+        {pageTitle && <IPageHeader title={pageTitle} buoySpace={28} />}
         <div className="page-table-filter">
           {showCreate && leftCreate ? (
             <Button

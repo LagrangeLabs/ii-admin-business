@@ -12,6 +12,7 @@ export default {
         'components/iform',
         'components/scroll-pdf',
         'components/page-table',
+        'components/ipage-header',
       ],
     },
     {
