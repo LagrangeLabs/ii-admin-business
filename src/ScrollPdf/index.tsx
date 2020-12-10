@@ -26,6 +26,8 @@ interface ScrollPdf {
   pdfFile: string;
   /** 标记信息 */
   markInfoOrigin?: MarkInfo;
+  /** canvas id 前缀，默认值canvas */
+  canvasIdPrefix?: string;
   /** 当pdf滚动展示页数发生变化时回调 */
   onScroll?: (params: any) => void;
   /** 获取canvas scaleInfo信息 */
@@ -41,6 +43,7 @@ export default function ScrollPdf(props: ScrollPdf) {
     showItem = 4,
     pdfFile,
     markInfoOrigin,
+    canvasIdPrefix = 'canvas',
     onChangePages,
     getScaleInfo,
     onScroll,
@@ -256,7 +259,7 @@ export default function ScrollPdf(props: ScrollPdf) {
   const updateCanvas = () => {
     const { start, end } = pdfStartEnd;
     for (let index = start; index <= end; index++) {
-      const canvasDom = document.getElementById(`canvas${index}`);
+      const canvasDom = document.getElementById(`${canvasIdPrefix}${index}`);
       if (canvasDom) {
         drawCanvas(pdfObj, index, canvasDom, scaleInfo.scale);
       }
@@ -300,7 +303,7 @@ export default function ScrollPdf(props: ScrollPdf) {
               className="canvas"
               style={item.style}
               key={item.id}
-              id={`canvas${item.id}`}
+              id={`${canvasIdPrefix}${item.id}`}
             />
           );
         })}

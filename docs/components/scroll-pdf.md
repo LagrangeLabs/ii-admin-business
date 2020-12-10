@@ -81,6 +81,7 @@ export default () => {
 | showItem       | 一次展示页数                      | number                                    | 4      | 否       |      |
 | pdfFile        | pdf 地址或者 base64 字符串        | string                                    |        | 是       |      |
 | markInfoOrigin | 标记信息                          | MarkInfo                                  |        | 否       |      |
+| canvasIdPrefix | canvas id 前缀，默认值 canvas     | string                                    | canvas | 否       |      |
 | onChangePages  | 当 pdf 滚动展示页数发生变化时回调 | (pages: number, curret?: number) => void; |        | 否       |      |
 | onScroll       | 当 pdf 滚动展示页数发生变化时回调 | (params: any) => void                     |        | 否       |      |
 | getScaleInfo   | 获取 canvas scaleInfo 信息        | (params: any) => void                     |        | 否       |      |
