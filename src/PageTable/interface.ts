@@ -62,7 +62,7 @@ export interface IPageTableProps {
   /** 排序key，默认值ordering */
   orderingKey?: string;
   /** tree节点选择回调 */
-  onTreeSelect: (params: any) => void;
+  onTreeSelect?: (params: any) => void;
 
   /** 默认搜索条件 */
   defaultCondtions?: { [key: string]: string };
