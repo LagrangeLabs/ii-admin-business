@@ -48,6 +48,9 @@ export default () => {
       height: 1000,
     });
   };
+  const getScaleInfo = params => {
+    params.ref.scrollTop = 1800 * 10;
+  };
 
   return (
     <div>
@@ -66,6 +69,7 @@ export default () => {
         markInfoOrigin={markInfoOrigin}
         onChangePages={getPages}
         pdfFile={base64File}
+        getScaleInfo={getScaleInfo}
       />
     </div>
   );
@@ -88,11 +92,12 @@ export default () => {
 
 #### MarkInfo pdf 标记信息
 
-| 属性      | 说明                        | 类型     | 默认值 | 是否必传 | 版本 |
-| --------- | --------------------------- | -------- | ------ | -------- | ---- |
-| width     | 服务端计算位置时 pdf 的宽度 | number   |        | 是       |      |
-| height    | 服务端计算位置时 pdf 的高度 | number   |        | 是       |      |
-| locations | 要标记的位置信息            | number[] |        | 是       |      |
-| page      | 第几页 pdf                  | number   |        | 是       |      |
+| 属性           | 说明                             | 类型     | 默认值 | 是否必传 | 版本 |
+| -------------- | -------------------------------- | -------- | ------ | -------- | ---- |
+| width          | 服务端计算位置时 pdf 的宽度      | number   |        | 是       |      |
+| height         | 服务端计算位置时 pdf 的高度      | number   |        | 是       |      |
+| locations      | 要标记的位置信息                 | number[] |        | 是       |      |
+| page           | 第几页 pdf                       | number   |        | 是       |      |
+| scrollToMiddle | 标记更新时是否自动滚动页面到中部 | boolean  | true   | 否       |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle

@@ -11,6 +11,8 @@ type MarkInfo = {
   locations: number[];
   /** 第几页pdf */
   page: number;
+  /** 标记更新时是否自动滚动页面到中部，默认值为true */
+  scrollToMiddle: boolean;
 };
 
 type CanvasItem = { id: number; style: CSSProperties };
@@ -113,6 +115,7 @@ export default function ScrollPdf(props: ScrollPdf) {
       width: originWidth,
       height: originHeight,
       page = 1,
+      scrollToMiddle = true,
     } = marnInfo;
 
     const { width, height } = scaleInfo;
@@ -139,11 +142,13 @@ export default function ScrollPdf(props: ScrollPdf) {
         setCurrent(current);
         getScrollArray(newPage, height, true);
       }
-      // markinfo 垂直居中
-      const alignHeight = top + heightM / 2 - height / 2;
-      const resultHeight = alignHeight > 0 ? alignHeight : 0;
-      const scrollTop = (page - 1) * (height + 10) + resultHeight;
-      canvasContainer.current.scrollTop = scrollTop;
+      if (scrollToMiddle) {
+        // markinfo 垂直居中
+        const alignHeight = top + heightM / 2 - height / 2;
+        const resultHeight = alignHeight > 0 ? alignHeight : 0;
+        const scrollTop = (page - 1) * (height + 10) + resultHeight;
+        canvasContainer.current.scrollTop = scrollTop;
+      }
     }
   };
 
@@ -213,6 +218,7 @@ export default function ScrollPdf(props: ScrollPdf) {
         scale,
         width: parseInt(offsetWidth),
         height: resultHeight,
+        ref: canvasContainer.current,
       };
       setScaleInfo(scaleInfo);
       getScaleInfo && getScaleInfo(scaleInfo);
