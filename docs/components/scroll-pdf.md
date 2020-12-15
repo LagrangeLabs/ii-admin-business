@@ -49,7 +49,7 @@ export default () => {
     });
   };
   const getScaleInfo = params => {
-    params.ref.scrollTop = 1800 * 10;
+    params.ref.scrollTop = 1800 * 1;
   };
 
   return (
