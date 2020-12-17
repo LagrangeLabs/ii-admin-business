@@ -69,6 +69,7 @@ export default function ScrollPdf(props: ScrollPdf) {
 
   const [pdfPagesNum, setPdfPagesNum] = useState(0);
   const [pdfStartEnd, setPdfStartEnd] = useState({ start: 0, end: 0 });
+  const [pdfPreStartEnd, setPdfPreStartEnd] = useState({ start: 0, end: 0 });
   const [current, setCurrent] = useState(1);
   const [canvasHeight, setCanvasHeight] = useState(0);
   const [markinfoList, setMarkInfoList] = useState([
@@ -93,14 +94,11 @@ export default function ScrollPdf(props: ScrollPdf) {
       const topPre = canvasContainer.current.scrollTop;
       const { height: preHeight } = scaleInfo;
       const scale = topPre / preHeight;
-      setScrollArray([]);
-      setTimeout(() => {
-        getScale(pdfObj).then((res: any) => {
-          const { height } = res;
-          getScrollArray(current, height);
-          canvasContainer.current.scrollTop = scale * height;
-        });
-      }, 100);
+      getScale(pdfObj).then((res: any) => {
+        const { height } = res;
+        getScrollArray(current, height);
+        canvasContainer.current.scrollTop = scale * height;
+      });
     }
   }, [resize]);
 
@@ -160,7 +158,6 @@ export default function ScrollPdf(props: ScrollPdf) {
   };
 
   const markText = (marnInfo: MarkInfo) => {
-    console.log('$$$$$$$$$$$$');
     const {
       locations = [],
       width: originWidth,
@@ -251,21 +248,24 @@ export default function ScrollPdf(props: ScrollPdf) {
     setScrollArray(result);
   };
   const getScale = function(pdfObj: any) {
-    return pdfObj.getPage(1).then(function(page: any) {
-      const { width, height } = page.getViewport({ scale: 1 });
-      const { offsetWidth } = canvasParent.current;
-      const scale = offsetWidth / width;
-      const resultHeight = scale * height;
-      const scaleInfo = {
-        scale,
-        width: parseInt(offsetWidth),
-        height: resultHeight,
-        ref: canvasContainer.current,
-      };
-      setScaleInfo(scaleInfo);
-      getScaleInfo && getScaleInfo(scaleInfo);
-      return scaleInfo;
-    });
+    return (
+      pdfObj &&
+      pdfObj.getPage(1).then(function(page: any) {
+        const { width, height } = page.getViewport({ scale: 1 });
+        const { offsetWidth } = canvasParent.current;
+        const scale = offsetWidth / width;
+        const resultHeight = scale * height;
+        const scaleInfo = {
+          scale,
+          width: parseInt(offsetWidth),
+          height: resultHeight,
+          ref: canvasContainer.current,
+        };
+        setScaleInfo(scaleInfo);
+        getScaleInfo && getScaleInfo(scaleInfo);
+        return scaleInfo;
+      })
+    );
   };
   const drawCanvas = (
     pdfObj: any,
@@ -306,12 +306,16 @@ export default function ScrollPdf(props: ScrollPdf) {
   };
   const updateCanvas = () => {
     const { start, end } = pdfStartEnd;
+    const { start: preStart, end: preEnd } = pdfPreStartEnd;
     for (let index = start; index <= end; index++) {
       const canvasDom = document.getElementById(`${canvasIdPrefix}${index}`);
-      if (canvasDom) {
+      /** 已经绘制的canvas不再进行重复绘制 */
+      const exist = index >= preStart && index <= preEnd;
+      if (canvasDom && !exist) {
         drawCanvas(pdfObj, index, canvasDom, scaleInfo.scale);
       }
     }
+    setPdfPreStartEnd({ start, end });
   };
 
   return (
