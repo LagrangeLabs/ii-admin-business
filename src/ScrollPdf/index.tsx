@@ -8,7 +8,7 @@ type MarkInfo = {
   /** 服务端计算位置时pdf 的高度 */
   height: number;
   /** 要标记的位置信息 */
-  locations: number[];
+  locations: number[][];
   /** 第几页pdf */
   page: number;
   /** 标记更新时是否自动滚动页面到中部，默认值为true */
@@ -22,8 +22,12 @@ interface ScrollPdf {
   bgColor?: string;
   /** markinfo style */
   markStyle?: CSSProperties;
-  /** 一次展示页数 */
+  /** 页面大小发生变化 */
+  resize?: boolean;
+  /** 一次展示页数, 默认值5 */
   showItem?: number;
+  /** canvas item 间距，默认值10 */
+  itemGap?: number;
   /** pdf 地址或者base64字符串 */
   pdfFile: string;
   /** 标记信息 */
@@ -42,7 +46,9 @@ export default function ScrollPdf(props: ScrollPdf) {
   const {
     markStyle,
     bgColor = '#eee',
-    showItem = 4,
+    showItem = 5,
+    itemGap = 10,
+    resize,
     pdfFile,
     markInfoOrigin,
     canvasIdPrefix = 'canvas',
@@ -65,19 +71,38 @@ export default function ScrollPdf(props: ScrollPdf) {
   const [pdfStartEnd, setPdfStartEnd] = useState({ start: 0, end: 0 });
   const [current, setCurrent] = useState(1);
   const [canvasHeight, setCanvasHeight] = useState(0);
-  const [markinfo, setMarkInfo] = useState({
-    left: 0,
-    top: 0,
-    width: 0,
-    height: 0,
-    zindex: -1,
-    opacity: 0,
-  });
+  const [markinfoList, setMarkInfoList] = useState([
+    {
+      left: 0,
+      top: 0,
+      width: 0,
+      height: 0,
+      zindex: -1,
+      opacity: 0,
+    },
+  ]);
   /** 更新canvas-total height */
   useEffect(() => {
-    const canvasHeight = (scaleInfo.height + 10) * pdfPagesNum;
+    const canvasHeight = (scaleInfo.height + itemGap) * pdfPagesNum;
     setCanvasHeight(canvasHeight);
   }, [scaleInfo, pdfPagesNum]);
+
+  /** 页面大小发生变化 */
+  useEffect(() => {
+    if (resize) {
+      const topPre = canvasContainer.current.scrollTop;
+      const { height: preHeight } = scaleInfo;
+      const scale = topPre / preHeight;
+      setScrollArray([]);
+      setTimeout(() => {
+        getScale(pdfObj).then((res: any) => {
+          const { height } = res;
+          getScrollArray(current, height);
+          canvasContainer.current.scrollTop = scale * height;
+        });
+      }, 100);
+    }
+  }, [resize]);
 
   /** scrollArray 变化时更新canvas */
   useEffect(() => {
@@ -109,7 +134,33 @@ export default function ScrollPdf(props: ScrollPdf) {
     }
   }, [markInfoOrigin]);
 
+  const getMarkList = (
+    locations: number[][],
+    unitH: number,
+    unitW: number,
+    height: number,
+    page: number,
+  ) => {
+    const list = [];
+    for (let index = 0, len = locations.length; index < len; index++) {
+      const element = locations[index];
+      const top = element[1] * unitH;
+      const heightM = (element[5] - element[1]) * unitH;
+      const markInfo = {
+        left: element[0] * unitW,
+        top: top + (page - 1) * (height + itemGap),
+        width: (element[2] - element[0]) * unitW,
+        height: heightM,
+        zindex: 1,
+        opacity: 1,
+      };
+      list.push(markInfo);
+    }
+    return list;
+  };
+
   const markText = (marnInfo: MarkInfo) => {
+    console.log('$$$$$$$$$$$$');
     const {
       locations = [],
       width: originWidth,
@@ -119,34 +170,28 @@ export default function ScrollPdf(props: ScrollPdf) {
     } = marnInfo;
 
     const { width, height } = scaleInfo;
+    const unitW = width / originWidth;
+    const unitH = height / originHeight;
     let heightM = 0;
     let top = 0;
     if (locations.length > 0 && width) {
-      const unitW = width / originWidth;
-      const unitH = height / originHeight;
-      top = locations[1] * unitH;
-      heightM = (locations[5] - locations[1]) * unitH;
-      const markInfo = {
-        left: locations[0] * unitW,
-        top: top + (page - 1) * (height + 10),
-        width: (locations[2] - locations[0]) * unitW,
-        height: heightM,
-        zindex: 1,
-        opacity: 1,
-      };
-      setMarkInfo(markInfo);
+      const firstLocation = locations[0];
+      top = firstLocation[1] * unitH;
+      heightM = (firstLocation[5] - firstLocation[1]) * unitH;
+      const resultList = getMarkList(locations, unitH, unitW, height, page);
+      setMarkInfoList(resultList);
     }
     if (height) {
       const newPage = page;
       if (newPage !== current) {
         setCurrent(current);
-        getScrollArray(newPage, height, true);
+        getScrollArray(newPage, height);
       }
       if (scrollToMiddle) {
-        // markinfo 垂直居中
+        // markinfoList 垂直居中
         const alignHeight = top + heightM / 2 - height / 2;
         const resultHeight = alignHeight > 0 ? alignHeight : 0;
-        const scrollTop = (page - 1) * (height + 10) + resultHeight;
+        const scrollTop = (page - 1) * (height + itemGap) + resultHeight;
         canvasContainer.current.scrollTop = scrollTop;
       }
     }
@@ -168,7 +213,7 @@ export default function ScrollPdf(props: ScrollPdf) {
         setPdfPagesNum(pageNum);
         getScale(pdf).then((res: any) => {
           const { height } = res;
-          getScrollArray(current, height, false, pageNum);
+          getScrollArray(current, height, pageNum);
         });
         if (onChangePages) {
           onChangePages(pageNum);
@@ -180,33 +225,30 @@ export default function ScrollPdf(props: ScrollPdf) {
   const getScrollArray = function(
     pageNum: number,
     pageHeight: number,
-    refresh?: boolean,
     totalNums?: number,
   ) {
     const maxNum = totalNums || pdfPagesNum;
     const height = pageHeight || scaleInfo.height;
     const gap = Math.ceil((showItem - 1) / 2);
     const start = Math.max(1, pageNum - gap);
-    const end = Math.min(maxNum, pageNum + gap);
-    const result: CanvasItem[] = [];
-    for (let index = start; index <= end; index++) {
-      result.push({
-        id: index,
-        style: {
-          height: `${height}px`,
-          top: `${(index - 1) * (height + 10)}px`,
-        },
-      });
+    const end = Math.min(maxNum, start + showItem - 1);
+    const result: (CanvasItem | null)[] = [];
+    for (let index = 0; index <= maxNum; index++) {
+      if (index >= start && index <= end) {
+        result.push({
+          id: index,
+          style: {
+            height: `${height}px`,
+            top: `${(index - 1) * (height + itemGap)}px`,
+          },
+        });
+      } else {
+        result.push(null);
+      }
     }
+
     setPdfStartEnd({ start, end });
-    if (refresh) {
-      setScrollArray([]);
-      setTimeout(() => {
-        setScrollArray(result);
-      }, 100);
-    } else {
-      setScrollArray(result);
-    }
+    setScrollArray(result);
   };
   const getScale = function(pdfObj: any) {
     return pdfObj.getPage(1).then(function(page: any) {
@@ -290,29 +332,42 @@ export default function ScrollPdf(props: ScrollPdf) {
           height: `${canvasHeight}px`,
         }}
       >
-        <div
-          className="ii-business-scrollpdf-result"
-          style={{
-            left: markinfo.left + 'px',
-            top: markinfo.top + 'px',
-            width: markinfo.width + 'px',
-            height: markinfo.height + 'px',
-            zIndex: markinfo.zindex,
-            opacity: markinfo.opacity,
-            ...markStyle,
-          }}
-        ></div>
-
-        {scrollArray.map((item: any, index: number) => {
+        {markinfoList.map((item, index: number) => {
           return (
-            <canvas
-              className="canvas"
-              style={item.style}
-              key={item.id}
-              id={`${canvasIdPrefix}${item.id}`}
-            />
+            <div
+              key={`index${index}`}
+              className="ii-business-scrollpdf-result"
+              style={{
+                left: item.left + 'px',
+                top: item.top + 'px',
+                width: item.width + 'px',
+                height: item.height + 'px',
+                zIndex: item.zindex,
+                opacity: item.opacity,
+                ...markStyle,
+              }}
+            ></div>
           );
         })}
+        {Array(pdfPagesNum)
+          .fill(1)
+          .map((_, index: number) => {
+            const page = index + 1;
+            const item = scrollArray[page];
+
+            return (
+              <div key={`page${page}`} id={`page${page}`}>
+                {item ? (
+                  <canvas
+                    className="canvas"
+                    style={item.style}
+                    key={item.id}
+                    id={`${canvasIdPrefix}${item.id}`}
+                  />
+                ) : null}
+              </div>
+            );
+          })}
       </div>
     </div>
   );

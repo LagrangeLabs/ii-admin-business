@@ -16,6 +16,7 @@ export default () => {
   const [markInfoOrigin, setMarkInfo] = useState();
   const [pages, setPages] = useState(0);
   const [current, setCurrent] = useState(1);
+  const [size, setSize] = useState(false);
   const [base64File, setBase64File] = useState(null);
   const props = {
     beforeUpload: file => {
@@ -43,7 +44,7 @@ export default () => {
   const onChange = (page: number) => {
     setCurrent(page);
     setMarkInfo({
-      page: page - 1,
+      page: page,
       width: 1000,
       height: 1000,
     });
@@ -51,12 +52,21 @@ export default () => {
   const getScaleInfo = params => {
     params.ref.scrollTop = 1800 * 1;
   };
+  const changeSize = params => {
+    setSize(true);
+    setTimeout(() => {
+      setSize(false);
+    }, 1000);
+  };
 
   return (
     <div>
       <Upload {...props}>
-        <Button>Select File</Button>
+        <Button>选择pdf文件</Button>
       </Upload>
+      <Button type="primary" style={{ marginTop: 10 }} onClick={changeSize}>
+        更改页面大小
+      </Button>
       <Pagination
         style={{ margin: '20px 0' }}
         current={current}
@@ -66,6 +76,7 @@ export default () => {
         onChange={onChange}
       />
       <ScrollPdf
+        resize={size}
         markInfoOrigin={markInfoOrigin}
         onChangePages={getPages}
         pdfFile={base64File}
@@ -82,7 +93,9 @@ export default () => {
 | -------------- | --------------------------------- | ----------------------------------------- | ------ | -------- | ---- |
 | bgColor        | 背景色                            | string                                    | #eee   | 否       |      |
 | markStyle      | markinfo style                    | CSSProperties                             |        | 否       |      |
-| showItem       | 一次展示页数                      | number                                    | 4      | 否       |      |
+| showItem       | 一次展示页数                      | number                                    | 5      | 否       |      |
+| resize         | 页面大小发生变化                  | boolean                                   |        | 否       |      |
+| itemGap        | canvas item 间距                  | number                                    | 10     | 否       |      |
 | pdfFile        | pdf 地址或者 base64 字符串        | string                                    |        | 是       |      |
 | markInfoOrigin | 标记信息                          | MarkInfo                                  |        | 否       |      |
 | canvasIdPrefix | canvas id 前缀，默认值 canvas     | string                                    | canvas | 否       |      |
@@ -92,12 +105,12 @@ export default () => {
 
 #### MarkInfo pdf 标记信息
 
-| 属性           | 说明                             | 类型     | 默认值 | 是否必传 | 版本 |
-| -------------- | -------------------------------- | -------- | ------ | -------- | ---- |
-| width          | 服务端计算位置时 pdf 的宽度      | number   |        | 是       |      |
-| height         | 服务端计算位置时 pdf 的高度      | number   |        | 是       |      |
-| locations      | 要标记的位置信息                 | number[] |        | 是       |      |
-| page           | 第几页 pdf                       | number   |        | 是       |      |
-| scrollToMiddle | 标记更新时是否自动滚动页面到中部 | boolean  | true   | 否       |      |
+| 属性           | 说明                             | 类型       | 默认值 | 是否必传 | 版本 |
+| -------------- | -------------------------------- | ---------- | ------ | -------- | ---- |
+| width          | 服务端计算位置时 pdf 的宽度      | number     |        | 是       |      |
+| height         | 服务端计算位置时 pdf 的高度      | number     |        | 是       |      |
+| locations      | 要标记的位置信息                 | number[][] |        | 是       |      |
+| page           | 第几页 pdf                       | number     |        | 是       |      |
+| scrollToMiddle | 标记更新时是否自动滚动页面到中部 | boolean    | true   | 否       |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
