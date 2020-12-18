@@ -186,10 +186,14 @@ export default function ScrollPdf(props: ScrollPdf) {
       }
       if (scrollToMiddle) {
         // markinfoList 垂直居中
-        const alignHeight = top + heightM / 2 - height / 2;
-        const resultHeight = alignHeight > 0 ? alignHeight : 0;
-        const scrollTop = (page - 1) * (height + itemGap) + resultHeight;
-        canvasContainer.current.scrollTop = scrollTop;
+        const heightContainer = canvasContainer.current.offsetHeight;
+        const alignHeight = top + heightM / 2 - (heightContainer || height) / 2;
+        // const resultHeight = alignHeight > 0 ? alignHeight : 0;
+        const scrollTop = (page - 1) * (height + itemGap) + alignHeight;
+        const max = pdfPagesNum * (height + itemGap) - heightContainer;
+        const resultTop = scrollTop < 0 ? 0 : scrollTop > max ? max : scrollTop;
+        canvasContainer.current.scrollTop = resultTop;
+        ``;
       }
     }
   };
@@ -324,7 +328,7 @@ export default function ScrollPdf(props: ScrollPdf) {
       onScroll={handleScroll}
       ref={canvasContainer}
       style={{
-        height: `${scaleInfo.height}px`,
+        height: '100%',
         background: scaleInfo.height ? bgColor : '#fff',
         // scrollMarginTop: `${scrollTop}px`,
       }}

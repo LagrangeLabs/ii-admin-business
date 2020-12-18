@@ -4,6 +4,9 @@ title: ScrollPdf 无限滚动
 
 # ScrollPdf 无限滚动
 
+注意事项：
+scrollpdf 组件高度为 100%，因此需要指定父级高度
+
 Demo:
 
 ```tsx
@@ -75,13 +78,15 @@ export default () => {
         total={pages}
         onChange={onChange}
       />
-      <ScrollPdf
-        resize={size}
-        markInfoOrigin={markInfoOrigin}
-        onChangePages={getPages}
-        pdfFile={base64File}
-        getScaleInfo={getScaleInfo}
-      />
+      <div style={{ height: '50vh' }}>
+        <ScrollPdf
+          resize={size}
+          markInfoOrigin={markInfoOrigin}
+          onChangePages={getPages}
+          pdfFile={base64File}
+          getScaleInfo={getScaleInfo}
+        />
+      </div>
     </div>
   );
 };
