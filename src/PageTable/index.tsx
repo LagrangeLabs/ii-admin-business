@@ -191,7 +191,7 @@ const PageTable: FC<IPageTableProps> = props => {
   };
   const onSelect = (value: any, item: any) => {
     const keyValue = {
-      key: item.node.key,
+      key: value.length ? item.node.key : '',
       value,
     };
     if (searchTreeKey) {
