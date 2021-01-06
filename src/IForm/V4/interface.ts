@@ -13,7 +13,8 @@ export type InputType =
   | 'checkbox'
   | 'number'
   | 'textarea'
-  | 'date';
+  | 'date'
+  | 'cronInput';
 /**
  * FormItem props
  */
