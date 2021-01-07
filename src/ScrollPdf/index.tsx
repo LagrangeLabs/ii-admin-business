@@ -137,11 +137,12 @@ export default function ScrollPdf(props: ScrollPdf) {
     unitH: number,
     unitW: number,
     height: number,
-    page: number,
+    pageNum: number,
   ) => {
     const list = [];
     for (let index = 0, len = locations.length; index < len; index++) {
       const element = locations[index];
+      const page = element[6] || pageNum;
       const top = element[1] * unitH;
       const heightM = (element[5] - element[1]) * unitH;
       const markInfo = {
