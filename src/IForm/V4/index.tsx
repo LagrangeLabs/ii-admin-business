@@ -17,7 +17,13 @@ import {
   Row,
   Col,
 } from 'antd';
-import { InputVerify, SelectSearch, IUpload, ISelectTree } from 'ii-admin-base';
+import {
+  InputVerify,
+  SelectSearch,
+  IUpload,
+  ISelectTree,
+  CronInput,
+} from 'ii-admin-base';
 import { FormInstance } from 'antd/lib/form';
 import { SearchProps } from 'ii-admin-base/dist/SelectSearch';
 
@@ -186,6 +192,8 @@ function getFormItem(item: FormItem & SearchProps) {
             })}
         </Select>
       );
+    case 'cronInput':
+      return <CronInput style={itemStyle} />;
     default:
       return <div />;
   }

@@ -137,6 +137,13 @@ const DEMO_FORM = [
     itemStyle: { width: '300px', height: '150px', background: '#fbfdff' },
     rules: [],
   },
+  {
+    type: 'cronInput',
+    label: 'cron表达式',
+    name: 'cronInput',
+    itemStyle: { width: '600px' },
+    rules: [],
+  },
 ];
 
 export default () => {
