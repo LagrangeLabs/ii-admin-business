@@ -52,7 +52,7 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "father-build": "^1.17.2",
     "gh-pages": "^3.0.0",
-    "ii-admin-base": "1.2.3",
+    "ii-admin-base": "1.2.4",
     "ii-admin-ui": "^1.0.1",
     "lint-staged": "^10.0.7",
     "lodash": "^4.17.20",
