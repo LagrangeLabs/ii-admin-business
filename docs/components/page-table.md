@@ -87,8 +87,8 @@ export default () => {
   ];
   const columns = [
     { dataIndex: 'serialNumber', title: '序号' },
-    { dataIndex: 'key', title: '第一列' },
-    { dataIndex: 'value', title: '第二列' },
+    { dataIndex: 'key', title: '第一列', sorter: true },
+    { dataIndex: 'value', title: '第二列', sorter: true },
   ];
   const deleteCallback = value => {
     console.log(value, 'sdfsdfsdf');
