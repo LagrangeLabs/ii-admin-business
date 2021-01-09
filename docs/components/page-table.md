@@ -15,11 +15,11 @@ import { SearchTree } from 'ii-admin-base';
 
 export default () => {
   const [checkObj, setCheckObj] = useState({
-    // showSearchTree: true,
+    showSearchTree: true,
     showSearch: true,
     showCreate: true,
     leftCreate: true,
-    // needPatchDelete: true,
+    needPatchDelete: true,
     needSelect: true,
   });
   const treeData = [
