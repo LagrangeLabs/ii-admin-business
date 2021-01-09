@@ -113,12 +113,12 @@ const PageTable: FC<IPageTableProps> = props => {
     sorter: any,
   ) => {
     const { current, pageSize: size } = pagination;
-    const { columnKey, order } = sorter;
+    const { field, order } = sorter;
     /** 非分页引起的change */
     if (pageSize === size && pageNum === current) {
       const newCondition = { ...searchConditons };
-      if (columnKey && order) {
-        const orderObj = getSortFilterParams(columnKey, order);
+      if (field && order) {
+        const orderObj = getSortFilterParams(field, order);
         setSearchConditions({ ...newCondition, ...orderObj });
       } else {
         delete newCondition[orderingKey];
