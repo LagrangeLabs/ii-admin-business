@@ -45,6 +45,8 @@ export interface IPageTableProps {
   /** 页面水平、垂直滚动 */
   scroll?: object;
 
+  /** treeProps属性 */
+  treeExtra?: TreeProps;
   /** 树结构数据 */
   treeData?: DataNode[];
   /** 需要加工的title字段 */
