@@ -18,6 +18,8 @@ export interface IPageTableProps {
   filters?: Array<FilterItemProps>;
   /** 是否展示组织树 */
   showSearchTree?: boolean;
+  /** 组织树取消选中是否触发请求 false */
+  treeNoCancel?: boolean;
   /** 组织树选中节点作为搜索条件key值 */
   searchTreeKey?: string;
   /** 是否显示新增操作 */

@@ -149,7 +149,9 @@ export default () => {
         total={100}
         pageTitle="页面标题"
         tableList={tableList}
-        getTableList={() => {}}
+        getTableList={() => {
+          console.log('get data');
+        }}
         columns={columns}
         filters={filters}
         createTitle="新增"
@@ -169,6 +171,7 @@ export default () => {
         iconTag={<PlusOutlined />}
         deleteCallback={deleteCallback}
         createCallback={createCallback}
+        treeNoCancel
         treeExtra={{
           defaultExpandedKeys: ['0-0', '0-1'],
           selectable: true,
@@ -214,16 +217,17 @@ export default () => {
 
 ### 有组织树时配置
 
-| 属性           | 说明                              | 类型                                                           | 默认值   | 版本 |
-| -------------- | --------------------------------- | -------------------------------------------------------------- | -------- | ---- |
-| showSearchTree | 是否展示组织树                    | boolean                                                        | false    | 否   |  |
-| searchTreeKey  | 组织树选中节点作为搜索条件 key 值 | string                                                         |          | 否   |  |
-| treeExtra      | antd tree 配置项                  | [treeProps](https://ant.design/components/tree-cn/#Tree-props) |          | 否   |  |
-| treeData       | 树结构数据                        | DataNode[]                                                     |          | 否   |  |
-| titleField     | 需要加工的 title 字段             | string                                                         | name     | 否   |  |
-| keyField       | 需要加工的 key 字段               | string                                                         | id       | 否   |  |
-| childrenField  | 需要加工的 children 字段          | string                                                         | children | 否   |  |
-| iconTag        | icon 图标                         | React.ReactNode                                                |          | 否   |  |
-| showSearch     | 是否显示搜索                      | boolean                                                        | true     | 否   |  |
+| 属性           | 说明                              | 类型                                                           | 默认值   | 是否必传 | 版本 |
+| -------------- | --------------------------------- | -------------------------------------------------------------- | -------- | -------- | ---- |
+| treeNoCancel   | 组织树取消选中是否触发请求        | boolean                                                        | false    | 否       |      |
+| showSearchTree | 是否展示组织树                    | boolean                                                        | false    | 否       |      |
+| searchTreeKey  | 组织树选中节点作为搜索条件 key 值 | string                                                         |          | 否       |      |
+| treeExtra      | antd tree 配置项                  | [treeProps](https://ant.design/components/tree-cn/#Tree-props) |          | 否       |      |
+| treeData       | 树结构数据                        | DataNode[]                                                     |          | 否       |      |
+| titleField     | 需要加工的 title 字段             | string                                                         | name     | 否       |      |
+| keyField       | 需要加工的 key 字段               | string                                                         | id       | 否       |      |
+| childrenField  | 需要加工的 children 字段          | string                                                         | children | 否       |      |
+| iconTag        | icon 图标                         | React.ReactNode                                                |          | 否       |      |
+| showSearch     | 是否显示搜索                      | boolean                                                        | true     | 否       |      |
 
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
