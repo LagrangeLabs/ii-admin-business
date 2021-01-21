@@ -44,6 +44,7 @@ const PageTable: FC<IPageTableProps> = props => {
     defaultCondtions = {},
 
     treeData = [],
+    treeExtra = {},
     titleField = 'name',
     keyField = 'id',
     childrenField = 'children',
@@ -220,6 +221,7 @@ const PageTable: FC<IPageTableProps> = props => {
             showSearch={showSearch}
             gap={gap}
             onSelect={onSelect}
+            {...treeExtra}
           />
         </div>
       )}
