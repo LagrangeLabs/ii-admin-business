@@ -50,6 +50,7 @@ const PageTable: FC<IPageTableProps> = props => {
     childrenField = 'children',
     iconTag,
     gap = 12,
+    treeNoCancel = false,
     orderingKey = 'ordering',
     onTreeSelect,
     createCallback,
@@ -195,7 +196,7 @@ const PageTable: FC<IPageTableProps> = props => {
       key: value.length ? item.node.key : '',
       value,
     };
-    if (searchTreeKey) {
+    if (searchTreeKey && ((treeNoCancel && keyValue.key) || !treeNoCancel)) {
       handleSearchConditions({ [searchTreeKey]: keyValue.key });
     }
     if (onTreeSelect) {
