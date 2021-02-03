@@ -62,6 +62,7 @@ export default function ScrollPdf(props: ScrollPdf) {
   const canvasParent = useRef(initRef);
   const canvasContainer = useRef(initRef);
   const intervalId = useRef(initRef);
+  const markScrollRef = useRef(initRef);
 
   const [scrollArray, setScrollArray] = useState(initArr);
   const [scaleInfo, setScaleInfo] = useState(initObj);
@@ -182,7 +183,7 @@ export default function ScrollPdf(props: ScrollPdf) {
     if (height) {
       const newPage = page;
       if (newPage !== current) {
-        setCurrent(current);
+        setCurrent(newPage);
         getScrollArray(newPage, height);
       }
       if (scrollToMiddle) {
@@ -193,8 +194,11 @@ export default function ScrollPdf(props: ScrollPdf) {
         const scrollTop = (page - 1) * (height + itemGap) + alignHeight;
         const max = pdfPagesNum * (height + itemGap) - heightContainer;
         const resultTop = scrollTop < 0 ? 0 : scrollTop > max ? max : scrollTop;
+        markScrollRef.current = true;
+        setTimeout(() => {
+          markScrollRef.current = false;
+        }, 1000);
         canvasContainer.current.scrollTop = resultTop;
-        ``;
       }
     }
   };
@@ -295,11 +299,14 @@ export default function ScrollPdf(props: ScrollPdf) {
     });
   };
   const handleScroll = (e: any) => {
+    if (markScrollRef.current) {
+      return false;
+    }
     const { scrollTop } = e.currentTarget;
     const { height } = scaleInfo;
     onScroll && onScroll(e);
     if (height) {
-      const newPage = Math.ceil(scrollTop / height) + 1;
+      const newPage = Math.ceil(scrollTop / (height + itemGap)) + 1;
       if (newPage !== current) {
         setCurrent(newPage);
         getScrollArray(newPage, height);

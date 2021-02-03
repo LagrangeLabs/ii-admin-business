@@ -71,6 +71,7 @@ export default () => {
         更改页面大小
       </Button>
       <Pagination
+        simple
         style={{ margin: '20px 0' }}
         current={current}
         defaultPageSize={1}
