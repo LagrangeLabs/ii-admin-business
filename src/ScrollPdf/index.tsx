@@ -186,6 +186,7 @@ export default function ScrollPdf(props: ScrollPdf) {
         setCurrent(newPage);
         getScrollArray(newPage, height);
       }
+      let resultTop = (page - 1) * (height + itemGap);
       if (scrollToMiddle) {
         // markinfoList 垂直居中
         const heightContainer = canvasContainer.current.offsetHeight;
@@ -193,13 +194,13 @@ export default function ScrollPdf(props: ScrollPdf) {
         // const resultHeight = alignHeight > 0 ? alignHeight : 0;
         const scrollTop = (page - 1) * (height + itemGap) + alignHeight;
         const max = pdfPagesNum * (height + itemGap) - heightContainer;
-        const resultTop = scrollTop < 0 ? 0 : scrollTop > max ? max : scrollTop;
-        markScrollRef.current = true;
-        setTimeout(() => {
-          markScrollRef.current = false;
-        }, 1000);
-        canvasContainer.current.scrollTop = resultTop;
+        resultTop = scrollTop < 0 ? 0 : scrollTop > max ? max : scrollTop;
       }
+      markScrollRef.current = true;
+      setTimeout(() => {
+        markScrollRef.current = false;
+      }, 1000);
+      canvasContainer.current.scrollTop = resultTop;
     }
   };
 
