@@ -50,6 +50,7 @@ export default () => {
       page: page,
       width: 1000,
       height: 1000,
+      scrollToMiddle: false,
     });
   };
   const getScaleInfo = params => {
