@@ -194,20 +194,21 @@ export default () => {
 
 ### FormItem 类型说明
 
-| 属性        | 说明                                 | 类型                                       | 默认值 | 是否必选 | 版本 |
-| ----------- | ------------------------------------ | ------------------------------------------ | ------ | -------- | ---- |
-| type        | item 类型                            | 详见 type 分类说明                         |        | 是       |      |
-| inputType   | input 类型 password、text、file 等   | string                                     |        | 否       |      |
-| itemStyle   | item style                           | CSSProperties                              |        | 否       |      |
-| label       | label formitem label 文案            | React.ReactNode \| string                  |        | 否       |      |
-| name        | name 提交值的 key                    | string                                     |        | 否       |      |
-| placeholder | placeholder                          | string                                     |        | 否       |      |
-| option      | option select 等的选项               | { key: string; value: string \| number }[] |        | 否       |      |
-| rules       | rules 校验规则                       | any[]                                      |        | 否       |      |
-| showSearch  | 是否可以搜索                         | boolean                                    | false  | 否       |      |
-| allowClear  | allowClear 是否允许清楚已选项        | boolean                                    | false  | 否       |      |
-| hidden      | 是否隐藏字段（依然会收集和校验字段） | boolean                                    | false  | 否       |      |
-| span        | form item col 占几部分               | number                                     |        | 否       |      |
+| 属性        | 说明                                            | 类型                                       | 默认值 | 是否必选 | 版本 |
+| ----------- | ----------------------------------------------- | ------------------------------------------ | ------ | -------- | ---- |
+| type        | item 类型                                       | 详见 type 分类说明                         |        | 是       |      |
+| inputType   | input 类型 password、text、file 等              | string                                     |        | 否       |      |
+| itemStyle   | item style                                      | CSSProperties                              |        | 否       |      |
+| label       | label formitem label 文案                       | React.ReactNode \| string                  |        | 否       |      |
+| name        | name 提交值的 key                               | string                                     |        | 否       |      |
+| placeholder | placeholder                                     | string                                     |        | 否       |      |
+| option      | option select 等的选项                          | { key: string; value: string \| number }[] |        | 否       |      |
+| rules       | rules 校验规则                                  | any[]                                      |        | 否       |      |
+| showSearch  | 是否可以搜索                                    | boolean                                    | false  | 否       |      |
+| allowClear  | allowClear 是否允许清楚已选项                   | boolean                                    | false  | 否       |      |
+| hidden      | 是否隐藏字段（依然会收集和校验字段）            | boolean                                    | false  | 否       |      |
+| span        | form item col 占几部分                          | number                                     |        | 否       |      |
+| renderItem  | renderItem 自定义 FormItem children render 方法 | (item: any) => React.ReactNode             |        | 否       |      |
 
 #### type 分类
 

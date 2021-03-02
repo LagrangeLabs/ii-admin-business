@@ -284,7 +284,7 @@ function MyFormV4(props: FormProps) {
             }
 
             // item 布局处理
-            const { name, label, rules, hidden = false } = item;
+            const { name, label, rules, hidden = false, renderItem } = item;
             const span = item.span === 24 || !showCol ? 24 : 12;
             let formLayoutCopy;
             if (showCol) {
@@ -310,7 +310,7 @@ function MyFormV4(props: FormProps) {
                   {...formLayoutCopy}
                   {...extraProps}
                 >
-                  {getFormItem(item)}
+                  {renderItem ? renderItem(item) : getFormItem(item)}
                 </Form.Item>
               </Col>
             );

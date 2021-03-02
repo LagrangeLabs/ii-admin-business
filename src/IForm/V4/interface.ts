@@ -93,4 +93,6 @@ export interface FormItem {
   uploadImage?: (params: FormData) => Promise<any>;
   /** disabledDate 不可选时间 */
   disabledDate?: (currentDate: any) => boolean;
+  /** renderItem  自定义FormItem children render方法 */
+  renderItem?: (item: any) => React.ReactNode;
 }
