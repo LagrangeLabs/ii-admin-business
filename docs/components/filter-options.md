@@ -25,6 +25,50 @@ export default () => {
       filter: ['startDate', 'endDate'],
       width: '40%',
     },
+    {
+      type: 'cascader',
+      placeholder: '职位类型',
+      filter: ['positionType', 'parent'],
+      width: '20%',
+      getFilters: options => {
+        console.log(options, 'sdfsdfsf');
+        return {};
+      },
+      options: [
+        {
+          value: 'zhejiang',
+          label: 'Zhejiang',
+          children: [
+            {
+              value: 'hangzhou',
+              label: 'Hangzhou',
+              children: [
+                {
+                  value: 'xihu',
+                  label: 'West Lake',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: 'jiangsu',
+          label: 'Jiangsu',
+          children: [
+            {
+              value: 'nanjing',
+              label: 'Nanjing',
+              children: [
+                {
+                  value: 'zhonghuamen',
+                  label: 'Zhong Hua Men',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ];
   const [filterValue, setFilterValue] = useState({});
   return <FilterOptions filters={filters} setFilterOpts={setFilterValue} />;
