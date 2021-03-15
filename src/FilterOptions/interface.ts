@@ -1,5 +1,7 @@
 import { SelectProps } from 'antd/lib/select';
 
+import { CascaderOptionType } from 'antd/lib/cascader';
+
 export type FilterType =
   | 'search'
   | 'input'
@@ -45,4 +47,6 @@ export interface FilterItemProps {
   className?: string;
   /** 额外配置条件 */
   extraProps?: SelectProps<any>;
+
+  getFilters?: (options: CascaderOptionType[]) => object;
 }

@@ -58,12 +58,18 @@ const FilterOptions: FC<FilterOptionProps> = props => {
   const handleCascaderChange = (
     filters: string[],
     options?: CascaderOptionType[],
+    getFilters?: (options: CascaderOptionType[]) => object,
   ) => {
     if (options && options.length > 0) {
-      setFilterOpts({
-        [`${filters[0]}`]: options[1].value,
-        [`${filters[1]}`]: options[1].label,
-      });
+      if (getFilters) {
+        const cascader = getFilters(options);
+        setFilterOpts(cascader);
+      } else {
+        setFilterOpts({
+          [`${filters[0]}`]: options[1].value,
+          [`${filters[1]}`]: options[1].label,
+        });
+      }
     } else {
       setFilterOpts({
         [`${filters[0]}`]: '',
@@ -168,7 +174,11 @@ const FilterOptions: FC<FilterOptionProps> = props => {
             placeholder={item.placeholder}
             style={{ width: item.width || 150, marginBottom: '20px' }}
             onChange={(value, options) =>
-              handleCascaderChange((filter as unknown) as string[], options)
+              handleCascaderChange(
+                (filter as unknown) as string[],
+                options,
+                item.getFilters,
+              )
             }
           />
         );
