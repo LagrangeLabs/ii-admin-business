@@ -25,4 +25,10 @@ export default () => <RichText />;
 | callBack    | 图片上传成功回调函数，用于解析返回结果中的图片地址 | (params: any) => void         | (res) => res.data.file_url                                     | 否       |      |
 | uploadImage | 图片上传方法                                       | (params: FormData) => Promise |                                                                | 否       |      |
 
+### FAQ：tinymceSrc 有没有本地资源
+
+若使用 umi 脚手架开发的项目，可以将包放在 public 文件夹下，根据具体发布域名来访问即可
+
+[lib.zip](https://lagrangelabs.github.io/ii-admin-business/lib.zip)
+
 More skills for writing demo: https://d.umijs.org/guide/demo-principle
