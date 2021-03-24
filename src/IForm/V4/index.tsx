@@ -138,7 +138,7 @@ function getFormItem(item: FormItem & SearchProps) {
     case 'richtext':
       return <RichText uploadImage={uploadImage} tinymceSrc={tinymceSrc} />;
     case 'textarea':
-      return <TextArea style={itemStyle} placeholder={placeholder} />;
+      return <TextArea style={itemStyle} placeholder={placeholder} {...rest} />;
     case 'phone':
       return (
         <InputVerify

@@ -120,6 +120,14 @@ const DEMO_FORM = [
     name: 'number',
   },
   {
+    type: 'textarea',
+    placeholder: '多行文本',
+    label: '多行文本',
+    name: 'textarea',
+    showCount: true,
+    maxLength: 1000,
+  },
+  {
     type: 'selectTree',
     label: '下拉组织树',
     name: 'selectTree',
