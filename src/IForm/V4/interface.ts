@@ -1,4 +1,5 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, ReactNode } from 'react';
+import { FormItemProps } from 'antd/lib/form';
 
 export type InputType =
   | 'text'
@@ -18,7 +19,7 @@ export type InputType =
 /**
  * FormItem props
  */
-export interface FormItem {
+export interface FormItem extends FormItemProps {
   /**
    * type :item 类型 | 'text' 文本展示
   | 'phone' 录入验证码
@@ -56,7 +57,7 @@ export interface FormItem {
   /** describe  type为upload的描述文案 */
   describe?: string | string[];
   /** extra type为upload的额外描述文案 */
-  extra?: string | string[];
+  extra?: string | string[] | ReactNode;
   /** tinymceSrc js文件地址 */
   tinymceSrc?: string;
   /** 是否可以搜索 */
