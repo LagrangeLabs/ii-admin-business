@@ -284,7 +284,14 @@ function MyFormV4(props: FormProps) {
             }
 
             // item 布局处理
-            const { name, label, rules, hidden = false, renderItem } = item;
+            const {
+              name,
+              label,
+              rules,
+              hidden = false,
+              renderItem,
+              ...rest
+            } = item;
             const span = item.span === 24 || !showCol ? 24 : 12;
             let formLayoutCopy;
             if (showCol) {
@@ -302,6 +309,7 @@ function MyFormV4(props: FormProps) {
             return (
               <Col span={span} key={name}>
                 <Form.Item
+                  {...rest}
                   style={{ width: '100%' }}
                   label={label}
                   name={name}
