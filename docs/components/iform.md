@@ -191,6 +191,8 @@ export default () => {
 
 ### From props 说明
 
+继承自[FormProps](https://ant.design/components/form-cn/#API)
+
 | 属性                 | 说明                       | 类型                                                                                                                                     | 默认值 | 是否必传 | 版本 |
 | -------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------- | ---- |
 | list                 | list form 各个 item 配置   | ([FormItem](/components/iform) & [SearchProps](https://lagrangelabs.github.io/ii-admin-base/#/ii-admin-base/components/select-search))[] |        | 是       |      |

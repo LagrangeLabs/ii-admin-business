@@ -24,7 +24,7 @@ import {
   ISelectTree,
   CronInput,
 } from 'ii-admin-base';
-import { FormInstance } from 'antd/lib/form';
+import { FormInstance, FormProps as OriginFormProps } from 'antd/lib/form';
 import { SearchProps } from 'ii-admin-base/dist/SelectSearch';
 
 import RichText from '../../RichText';
@@ -38,7 +38,7 @@ const { TextArea } = Input;
 /**
  * form 配置信息
  */
-export interface FormProps {
+export interface FormProps extends OriginFormProps {
   /** list form各个item配置 */
   list: (FormItem & SearchProps)[];
   /** form 表单实例 */
@@ -214,6 +214,7 @@ function MyFormV4(props: FormProps) {
     initialValues = {},
     initialRelatedValues,
     showCol = false,
+    ...restForm
   } = props;
   const initObj: any = {};
   const [relatedValue, setRelatedValue] = useState(
@@ -274,6 +275,7 @@ function MyFormV4(props: FormProps) {
         form={formResult}
         {...formItemLayout}
         initialValues={initialValues}
+        {...restForm}
       >
         <Row>
           {list.map((item: FormItem) => {
