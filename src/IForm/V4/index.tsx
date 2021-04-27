@@ -293,6 +293,7 @@ function MyFormV4(props: FormProps) {
               label,
               rules,
               hidden = false,
+              shouldUpdate = false,
               renderItem,
               ...rest
             } = item;
@@ -310,7 +311,11 @@ function MyFormV4(props: FormProps) {
             let initProps: any = {};
             const extraProps = handleExtraProps(initProps, item.type);
 
-            return (
+            return shouldUpdate ? (
+              <Form.Item noStyle={!!renderItem} shouldUpdate={shouldUpdate}>
+                {renderItem}
+              </Form.Item>
+            ) : (
               <Col span={span} key={name}>
                 <Form.Item
                   {...rest}
@@ -322,7 +327,7 @@ function MyFormV4(props: FormProps) {
                   {...formLayoutCopy}
                   {...extraProps}
                 >
-                  {renderItem ? renderItem(item) : getFormItem(item)}
+                  {renderItem || getFormItem(item)}
                 </Form.Item>
               </Col>
             );

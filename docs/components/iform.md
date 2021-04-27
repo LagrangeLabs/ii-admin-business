@@ -9,7 +9,7 @@ Demo:
 ```tsx
 import React from 'react';
 import { IForm } from 'ii-admin-business';
-import { Form, Button, Row, Col } from 'antd';
+import { Form, Button, Row, Col, Input } from 'antd';
 
 const treeData = [
   {
@@ -151,6 +151,31 @@ const DEMO_FORM = [
     name: 'cronInput',
     itemStyle: { width: '600px' },
     rules: [],
+  },
+  {
+    type: '',
+    label: 'renderItem',
+    name: 'renderItem',
+    itemStyle: { width: '600px' },
+    rules: [],
+    shouldUpdate: (prevValues, currentValues) => {
+      return prevValues.select !== currentValues.select;
+    },
+    renderItem: ({ getFieldValue }) => {
+      if (!getFieldValue) {
+        return null;
+      }
+      const value = getFieldValue('select');
+      return value ? (
+        <Form.Item
+          name="renderItemchild"
+          label="renderItem"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder={value} />
+        </Form.Item>
+      ) : null;
+    },
   },
 ];
 
