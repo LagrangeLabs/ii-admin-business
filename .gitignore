@@ -7,11 +7,14 @@
 /yarn.lock
 /package-lock.json
 
+/coverage
 ci_rsa
 ci_rsa.pub
 # production
 /dist
 /docs-dist
+/lib
+/es
 
 # misc
 .DS_Store

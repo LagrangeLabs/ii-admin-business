@@ -15,6 +15,6 @@ export default defineConfig({
   mode: 'site',
   menus,
   styles: ['https://cdn.bootcdn.net/ajax/libs/antd/4.7.0/antd.min.css'],
-  scripts: ['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js'],
+  // scripts: ['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js'],
   // more config: https://d.umijs.org/config
 });
