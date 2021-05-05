@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 import React from 'react';
-import { Editor } from './TinymceReact';
+import { Editor } from './tinymce-react';
 // import { uploadImage } from '@/services/global';
 
 interface RichText {

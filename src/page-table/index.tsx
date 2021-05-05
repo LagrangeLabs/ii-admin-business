@@ -7,8 +7,8 @@ import { TablePaginationConfig } from 'antd/lib/table';
 // import { SorterResult } from 'antd/lib/table/interface';
 
 import { IPageTableProps } from './interface';
-import FilterOptions from '../FilterOptions';
-import IPageHeader from '../IPageHeader';
+import FilterOptions from '../filter-options';
+import IPageHeader from '../i-page-header';
 
 import './index.less';
 
