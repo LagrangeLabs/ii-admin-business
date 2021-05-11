@@ -6,7 +6,7 @@ import {
   ForwardOutlined,
 } from '@ant-design/icons';
 import { message, Slider } from 'antd';
-import { getVideoTime } from '@/utils/getMatch';
+import { getVideoTime } from '../utils/getMatch';
 
 import './index.less';
 

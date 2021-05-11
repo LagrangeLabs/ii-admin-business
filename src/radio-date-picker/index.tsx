@@ -8,7 +8,7 @@ import {
   END_TIME,
   getDayFlag,
   countDays,
-} from '@/utils/time';
+} from '../utils/time';
 
 import { KeyValueObj } from '../interface';
 
