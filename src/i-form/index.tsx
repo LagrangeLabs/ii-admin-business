@@ -27,7 +27,7 @@ import {
 import { FormInstance, FormProps as OriginFormProps } from 'antd/lib/form';
 import { SearchProps } from 'ii-admin-base/dist/SelectSearch';
 
-import RichText from '../../RichText';
+import RichText from '../rich-text';
 import { FormItem } from './interface';
 
 import { getLayoutItem, handleExtraProps } from './util';

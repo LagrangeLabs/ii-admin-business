@@ -1,7 +1,7 @@
 import { ColumnProps } from 'antd/lib/table';
 import { DataNode, TreeProps } from 'antd/lib/tree';
 
-import { FilterItemProps } from '../FilterOptions/interface';
+import { FilterItemProps } from '../filter-options/interface';
 
 export interface IPageTableProps {
   /** 表单数据总数 */

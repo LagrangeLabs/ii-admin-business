@@ -1,10 +1,10 @@
-export { default as Voice } from './Voice';
-export { default as RichText } from './RichText';
-export { default as IForm } from './IForm/V4';
-export { default as RadioDatePicker } from './RadioDatePicker';
-export { default as UpStatus } from './UpStatus';
-export { default as ScrollPdf } from './ScrollPdf';
-export { default as IPageHeader } from './IPageHeader';
+export { default as Voice } from './voice';
+export { default as RichText } from './rich-text';
+export { default as IForm } from './i-form';
+export { default as RadioDatePicker } from './radio-date-picker';
+export { default as UpStatus } from './up-status';
+export { default as ScrollPdf } from './scroll-pdf';
+export { default as IPageHeader } from './i-page-header';
 
-export { default as FilterOptions } from './FilterOptions';
-export { default as PageTable } from './PageTable';
+export { default as FilterOptions } from './filter-options';
+export { default as PageTable } from './page-table';

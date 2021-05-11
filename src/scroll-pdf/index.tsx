@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect, CSSProperties } from 'react';
 
 import './index.less';
 
+const pdfjsLib = require('pdfjs-dist');
+pdfjsLib.GlobalWorkerOptions.workerSrc = require('pdfjs-dist/build/pdf.worker.entry.js');
+
 type MarkInfo = {
   /** 服务端计算位置时pdf 的宽度 */
   width: number;

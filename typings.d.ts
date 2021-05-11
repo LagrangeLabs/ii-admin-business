@@ -1,3 +1,3 @@
 declare module '*.css';
 declare module '*.less';
-declare var pdfjsLib: any;
+// declare var pdfjsLib: any;
