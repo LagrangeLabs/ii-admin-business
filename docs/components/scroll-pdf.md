@@ -101,6 +101,7 @@ export default () => {
 | bgColor        | 背景色                            | string                                    | #eee   | 否       |      |
 | markStyle      | markinfo style                    | CSSProperties                             |        | 否       |      |
 | showItem       | 一次展示页数                      | number                                    | 5      | 否       |      |
+| defaultScale   | 默认缩放大小                      | number                                    | 1      | 否       |      |
 | resize         | 页面大小发生变化                  | boolean                                   |        | 否       |      |
 | itemGap        | canvas item 间距                  | number                                    | 10     | 否       |      |
 | pdfFile        | pdf 地址或者 base64 字符串        | string                                    |        | 是       |      |
