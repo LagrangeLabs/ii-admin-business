@@ -10,6 +10,8 @@ interface RichText {
   value?: string;
   /** formData上传文件时key值，默认值为file */
   fileKey?: string;
+  /** 上传文件时自定义的值 */
+  customData?: Record<string, unknown>;
   /** 富文本高度 默认值为500 */
   height?: number;
   /** 富文本内容改变回调  */
@@ -33,6 +35,7 @@ const RichText = (props: RichText) => {
     tinymceSrc = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js',
     onChange,
     uploadImage,
+    customData = {},
     callBack = callBackDefault,
   } = props;
 
@@ -69,6 +72,9 @@ const RichText = (props: RichText) => {
         ) {
           const file = blobInfo.blob();
           const formData = new FormData();
+          for (let customKey in customData) {
+            formData.append(customKey, customData[customKey] as string);
+          }
           formData.append(fileKey, file, file.name);
           if (uploadImage) {
             uploadImage(formData)
