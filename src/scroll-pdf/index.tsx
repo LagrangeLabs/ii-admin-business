@@ -29,6 +29,8 @@ interface ScrollPdf {
   resize?: boolean;
   /** 一次展示页数, 默认值5 */
   showItem?: number;
+  /** 默认缩放大小, 默认值1 */
+  defaultScale?: number;
   /** canvas item 间距，默认值10 */
   itemGap?: number;
   /** pdf 地址或者base64字符串 */
@@ -49,6 +51,7 @@ export default function ScrollPdf(props: ScrollPdf) {
   const {
     markStyle,
     bgColor = '#eee',
+    defaultScale = 1,
     showItem = 5,
     itemGap = 10,
     resize,
@@ -261,10 +264,12 @@ export default function ScrollPdf(props: ScrollPdf) {
     setScrollArray(result);
   };
   const getScale = function(pdfObj: any) {
+    const scalePdf = Math.max(defaultScale || 1, window.devicePixelRatio || 1);
+
     return (
       pdfObj &&
       pdfObj.getPage(1).then(function(page: any) {
-        const { width, height } = page.getViewport({ scale: 1 });
+        const { width, height } = page.getViewport({ scale: 1 / scalePdf });
         const { offsetWidth } = canvasParent.current;
         const scale = offsetWidth / width;
         const resultHeight = scale * height;
