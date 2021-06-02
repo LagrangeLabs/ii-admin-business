@@ -4,7 +4,7 @@ import { Editor } from './tinymce-react';
 // import { uploadImage } from '@/services/global';
 
 interface RichText {
-  /** tinymce js文件地址 默认值为https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js */
+  /** tinymce js文件地址 默认值为https://cdn-static-resources.ai-indeed.com/ii-fed-lib/ii-components-richtext/tinymce.min.js */
   tinymceSrc?: string;
   /** richtext值 */
   value?: string;
@@ -32,7 +32,7 @@ const RichText = (props: RichText) => {
     value,
     height = 500,
     fileKey = 'file',
-    tinymceSrc = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js',
+    tinymceSrc = 'https://cdn-static-resources.ai-indeed.com/ii-fed-lib/ii-components-richtext/tinymce.min.js',
     onChange,
     uploadImage,
     customData = {},
@@ -47,8 +47,6 @@ const RichText = (props: RichText) => {
 
   return (
     <Editor
-      // apiKey="hxwv2utnjoz9wzhh430d6lo6pbu1exm8k5sks1coqs79jf9z"
-      // tinymceScriptSrc="http://ipark-admin-fe.qa.ii-ai.tech/lib/tinymce.min.js"
       tinymceScriptSrc={tinymceSrc}
       value={value}
       init={{
