@@ -4,12 +4,14 @@ import { Editor } from './tinymce-react';
 // import { uploadImage } from '@/services/global';
 
 interface RichText {
-  /** tinymce js文件地址 默认值为https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js */
+  /** tinymce js文件地址 默认值为https://cdn-static-resources.ai-indeed.com/ii-fed-lib/ii-components-richtext/tinymce.min.js */
   tinymceSrc?: string;
   /** richtext值 */
   value?: string;
   /** formData上传文件时key值，默认值为file */
   fileKey?: string;
+  /** 上传文件时自定义的值 */
+  customData?: Record<string, unknown>;
   /** 富文本高度 默认值为500 */
   height?: number;
   /** 富文本内容改变回调  */
@@ -30,9 +32,10 @@ const RichText = (props: RichText) => {
     value,
     height = 500,
     fileKey = 'file',
-    tinymceSrc = 'https://cdn.bootcdn.net/ajax/libs/tinymce/5.5.1/tinymce.min.js',
+    tinymceSrc = 'https://cdn-static-resources.ai-indeed.com/ii-fed-lib/ii-components-richtext/tinymce.min.js',
     onChange,
     uploadImage,
+    customData = {},
     callBack = callBackDefault,
   } = props;
 
@@ -44,8 +47,6 @@ const RichText = (props: RichText) => {
 
   return (
     <Editor
-      // apiKey="hxwv2utnjoz9wzhh430d6lo6pbu1exm8k5sks1coqs79jf9z"
-      // tinymceScriptSrc="http://ipark-admin-fe.qa.ii-ai.tech/lib/tinymce.min.js"
       tinymceScriptSrc={tinymceSrc}
       value={value}
       init={{
@@ -69,6 +70,9 @@ const RichText = (props: RichText) => {
         ) {
           const file = blobInfo.blob();
           const formData = new FormData();
+          for (let customKey in customData) {
+            formData.append(customKey, customData[customKey] as string);
+          }
           formData.append(fileKey, file, file.name);
           if (uploadImage) {
             uploadImage(formData)
