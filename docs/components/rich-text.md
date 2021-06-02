@@ -10,7 +10,9 @@ Demo:
 import React from 'react';
 import { RichText } from 'ii-admin-business';
 
-export default () => <RichText customData={source: 'rpa-mall', for: 'pc'}/>;
+export default () => (
+  <RichText customData={{ source: 'rpa-mall', for: 'pc' }} />
+);
 ```
 
 ### RichText props
