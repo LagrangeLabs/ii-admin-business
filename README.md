@@ -26,6 +26,11 @@ Build library via `father-build`,
 $ npm run build
 ```
 
+发布版本
+```bash
+$ npm run release
+```
+
 #### 组件单元测试
 
 采用[jest](https://jestjs.io/docs/en/api) + [enzyme](https://enzymejs.github.io/enzyme/)方案
