@@ -7,12 +7,25 @@ title: RichText 富文本组件
 Demo:
 
 ```tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { RichText } from 'ii-admin-business';
+import { Switch } from 'antd';
 
-export default () => (
-  <RichText customData={{ source: 'rpa-mall', for: 'pc' }} />
-);
+export default () => {
+  const [disabled, setDisabled] = useState<boolean>(false);
+  return (
+    <>
+      <p>
+        可编辑状态：
+        <Switch defaultChecked={disabled} onChange={setDisabled} />
+      </p>
+      <RichText
+        customData={{ source: 'rpa-mall', for: 'pc' }}
+        disabled={disabled}
+      />
+    </>
+  );
+};
 ```
 
 ### RichText props
@@ -27,6 +40,7 @@ export default () => (
 | onChange    | 富文本内容改变回调                                 | (params: string) => void      |                                                                                             | 否       |      |
 | callBack    | 图片上传成功回调函数，用于解析返回结果中的图片地址 | (params: any) => void         | (res) => res.data.file_url                                                                  | 否       |      |
 | uploadImage | 图片上传方法                                       | (params: FormData) => Promise |                                                                                             | 否       |      |
+| disabled    | 富文本可编辑状态                                   | boolean                       | false                                                                                       | 否       |      |
 
 ### FAQ：tinymceSrc 有没有本地资源
 
