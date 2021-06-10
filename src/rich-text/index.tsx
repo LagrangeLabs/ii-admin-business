@@ -20,6 +20,8 @@ interface RichText {
   callBack?: (params: any) => void;
   /** 图片上传方法 */
   uploadImage?: (params: FormData) => Promise<any>;
+  /** 编辑器可编辑状态 */
+  disabled?: boolean;
 }
 
 const callBackDefault = (res: any) => {
@@ -37,6 +39,7 @@ const RichText = (props: RichText) => {
     uploadImage,
     customData = {},
     callBack = callBackDefault,
+    disabled = false,
   } = props;
 
   const handleEditorChange = (content: string) => {
@@ -49,6 +52,7 @@ const RichText = (props: RichText) => {
     <Editor
       tinymceScriptSrc={tinymceSrc}
       value={value}
+      disabled={disabled}
       init={{
         height,
         language: 'zh_CN',
