@@ -107,6 +107,8 @@ const PageTable: FC<IPageTableProps> = props => {
   const changePageNumAndSize = ({ num = pageNum, size = pageSize }) => {
     setPageNum(num);
     setPageSize(size);
+    // 清空选中项
+    onSelectChange([]);
   };
   /** 处理过滤、排序问题 */
   const onChange = (
