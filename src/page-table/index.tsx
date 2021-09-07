@@ -102,6 +102,7 @@ const PageTable: FC<IPageTableProps> = props => {
       pageSize,
       ...searchConditons,
     });
+    setSelectedRowKeys([]);
   };
 
   const changePageNumAndSize = ({ num = pageNum, size = pageSize }) => {
@@ -183,12 +184,8 @@ const PageTable: FC<IPageTableProps> = props => {
     if (selectedRowKeys.length === 0) {
       message.error('请先选择要删除的数据');
       return;
-    } else if (deleteCallback) {
-      try {
-        deleteCallback(selectedRowKeys).then(() => {
-          setSelectedRowKeys([]);
-        });
-      } catch (e) {}
+    } else {
+      deleteCallback && deleteCallback(selectedRowKeys);
     }
   };
 
