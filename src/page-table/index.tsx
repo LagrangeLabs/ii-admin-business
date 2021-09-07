@@ -183,8 +183,12 @@ const PageTable: FC<IPageTableProps> = props => {
     if (selectedRowKeys.length === 0) {
       message.error('请先选择要删除的数据');
       return;
-    } else {
-      deleteCallback && deleteCallback(selectedRowKeys);
+    } else if (deleteCallback) {
+      try {
+        deleteCallback(selectedRowKeys).then(() => {
+          setSelectedRowKeys([]);
+        });
+      } catch (e) {}
     }
   };
 
