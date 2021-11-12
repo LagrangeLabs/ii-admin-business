@@ -1,79 +1,79 @@
 {
-    "name": "ii-admin-business",
-    "version": "0.3.8",
-    "homepage": "https://lagrangelabs.github.io/ii-admin-business",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/LagrangeLabs/ii-admin-business.git"
-    },
-    "scripts": {
-        "start": "dumi dev",
-        "docs:build": "dumi build",
-        "docs:deploy": "gh-pages -d docs-dist",
-        "build": "father-build",
-        "deploy": "npm run docs:build && npm run docs:deploy",
-        "release": "npm run build && npm publish",
-        "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
-        "test": "umi-test",
-        "test:coverage": "umi-test --coverage",
-        "prepublishOnly": "npm run build"
-    },
-    "main": "lib/index.js",
-    "module": "es/index.js",
-    "unpkg": "dist/index.umd.min.js",
-    "types": "dist/index.d.ts",
-    "gitHooks": {
-        "pre-commit": "lint-staged"
-    },
-    "resolutions": {
-        "@types/react": "^16.14.2",
-        "mathjax-full": "3.1.2"
-    },
-    "lint-staged": {
-        "*.{js,jsx,less,md,json}": [
-            "prettier --write"
-        ],
-        "*.ts?(x)": [
-            "prettier --parser=typescript --write"
-        ]
-    },
-    "dependencies": {
-        "pdfjs-dist": "^2.7.570"
-    },
-    "peerDependencies": {
-        "@ant-design/icons": ">=4.2.0",
-        "antd": ">=4.7.0",
-        "moment": ">=2.29.0",
-        "lodash": ">=4.17.0",
-        "ii-admin-base": ">=1.1.6",
-        "ii-admin-ui": ">=1.0.1",
-        "react": ">=16.8.0",
-        "prop-types": ">=15.0.0"
-    },
-    "devDependencies": {
-        "@ant-design/icons": "^4.2.2",
-        "@types/lodash": "^4.14.168",
-        "@umijs/test": "^3.0.5",
-        "antd": "^4.7.3",
-        "babel-plugin-import": "^1.13.3",
-        "dumi": "^1.0.10",
-        "enzyme": "^3.11.0",
-        "enzyme-adapter-react-16": "^1.15.5",
-        "father-build": "^1.17.2",
-        "gh-pages": "^3.0.0",
-        "ii-admin-base": "1.2.4",
-        "ii-admin-ui": "^1.0.1",
-        "lint-staged": "^10.0.7",
-        "lodash": "^4.17.20",
-        "moment": "^2.29.1",
-        "prettier": "^1.19.1",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
-        "yorkie": "^2.0.0"
-    },
-    "files": [
-        "dist",
-        "es",
-        "lib"
+  "name": "ii-admin-business",
+  "version": "0.3.10",
+  "homepage": "https://lagrangelabs.github.io/ii-admin-business",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LagrangeLabs/ii-admin-business.git"
+  },
+  "scripts": {
+    "start": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:deploy": "gh-pages -d docs-dist",
+    "build": "father-build",
+    "deploy": "npm run docs:build && npm run docs:deploy",
+    "release": "npm run build && npm publish",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/index.umd.min.js",
+  "types": "dist/index.d.ts",
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "resolutions": {
+    "@types/react": "^16.14.2",
+    "mathjax-full": "3.1.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
     ]
+  },
+  "dependencies": {
+    "pdfjs-dist": "^2.7.570"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": ">=4.2.0",
+    "antd": ">=4.7.0",
+    "moment": ">=2.29.0",
+    "lodash": ">=4.17.0",
+    "ii-admin-base": ">=1.1.6",
+    "ii-admin-ui": ">=1.0.1",
+    "react": ">=16.8.0",
+    "prop-types": ">=15.0.0"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@types/lodash": "^4.14.168",
+    "@umijs/test": "^3.0.5",
+    "antd": "^4.7.3",
+    "babel-plugin-import": "^1.13.3",
+    "dumi": "^1.0.10",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "father-build": "^1.17.2",
+    "gh-pages": "^3.0.0",
+    "ii-admin-base": "1.2.4",
+    "ii-admin-ui": "^1.0.1",
+    "lint-staged": "^10.0.7",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "yorkie": "^2.0.0"
+  },
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ]
 }
