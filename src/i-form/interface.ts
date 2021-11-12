@@ -12,9 +12,11 @@ export type InputType =
   | 'richtext'
   | 'input'
   | 'checkbox'
+  | 'radio'
   | 'number'
   | 'textarea'
   | 'date'
+  | 'rangeDate'
   | 'cronInput';
 /**
  * FormItem props
@@ -31,9 +33,11 @@ export interface FormItem extends FormItemProps {
   | 'richtext' 富文本
   | 'input' 文本录入框
   | 'checkbox' 多选
+  | 'radio' 单选
   | 'number' 数字录入框
   | 'textarea' 多行文本
   | 'date' 时间选择器
+  | 'rangeDate' 时间区间选择器
    */
   type: InputType;
   /** input 类型  password、text、file等 */
@@ -66,6 +70,8 @@ export interface FormItem extends FormItemProps {
   allowClear?: boolean;
   /** 是否隐藏字段（依然会收集和校验字段） */
   hidden?: boolean;
+  /** 当前录入框是否禁用 */
+  disable?: boolean;
   /** 关联选项 */
   childName?: string;
   /** 关联选项 父级 */
@@ -85,6 +91,8 @@ export interface FormItem extends FormItemProps {
   keyField?: string;
   /** 需要加工的children字段 */
   childrenField?: string;
+  /** 表单布局方向 */
+  direction?: 'horizontal' | 'vertical';
 
   /** getVerifyCode 获取验证码方法 */
   getVerifyCode?: () => void;

@@ -8,11 +8,12 @@ import {
   InputNumber,
   DatePicker,
   // Switch,
-  // Radio,
+  Radio,
   // Slider,
   // Button,
   // Upload,
   // Rate,
+  Space,
   Checkbox,
   Row,
   Col,
@@ -34,6 +35,7 @@ import { getLayoutItem, handleExtraProps } from './util';
 
 const { Option } = Select;
 const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 /**
  * form 配置信息
@@ -57,28 +59,37 @@ const formItemLayoutDefault = {
 };
 const nopop = function nopop() {};
 
-function getFormItem(item: FormItem & SearchProps) {
+const getShowTime = (dateFormat: string) => {
+  const index = dateFormat.indexOf(' ');
+  if (index !== -1) {
+    return {
+      format: dateFormat.substring(index + 1),
+    };
+  }
+  return false;
+};
+
+export function getFormItem(item: FormItem & SearchProps) {
   const {
+    name,
+    label,
+    rules,
+    hidden = false,
+    disable = false,
+    shouldUpdate = false,
     type,
     inputType,
     itemStyle,
-    label,
     value,
     option,
     dateFormat,
     showSearch = false,
-    getVerifyCode = nopop,
-    getOption,
-    getParams,
-    fetchOption,
     allowClear = false,
-    disabledDate,
     extra,
     describe,
-    uploadImage,
     showTime,
     tinymceSrc,
-
+    direction = 'horizontal',
     /** 树结构数据 */
     treeData = [],
     /** 需要加工的title字段 */
@@ -87,6 +98,12 @@ function getFormItem(item: FormItem & SearchProps) {
     keyField = 'id',
     /** 需要加工的children字段 */
     childrenField = 'children',
+    uploadImage,
+    getVerifyCode = nopop,
+    getOption,
+    getParams,
+    fetchOption,
+    disabledDate,
     ...rest
   } = item;
   let { placeholder } = item;
@@ -102,24 +119,41 @@ function getFormItem(item: FormItem & SearchProps) {
       return <span className="ant-form-text">{value}</span>;
     case 'number':
       return (
-        <InputNumber style={{ width: '100%' }} placeholder={placeholder} />
+        <InputNumber
+          disabled={disable}
+          style={{ width: '100%', ...itemStyle }}
+          placeholder={placeholder}
+          {...rest}
+        />
       );
     case 'date':
+    case 'rangeDate':
+      const format = dateFormat || 'YYYY-MM-DD';
+      const showTimeR = showTime || getShowTime(format);
+      const DateE = type === 'date' ? DatePicker : RangePicker;
       return (
-        <DatePicker
-          format={dateFormat || 'YYYY-MM-DD'}
-          style={{ width: '100%' }}
-          showTime={showTime}
+        <DateE
+          disabled={disable}
+          format={format}
+          style={{ width: '100%', ...itemStyle }}
+          showTime={showTimeR}
           disabledDate={disabledDate}
         />
       );
     case 'input':
       return (
-        <Input type={inputType} style={itemStyle} placeholder={placeholder} />
+        <Input
+          disabled={disable}
+          type={inputType}
+          style={itemStyle}
+          placeholder={placeholder}
+        />
       );
     case 'upload':
       return (
         <IUpload
+          // @ts-ignore
+          disabled={disable}
           style={itemStyle}
           extra={extra}
           describe={describe}
@@ -140,11 +174,19 @@ function getFormItem(item: FormItem & SearchProps) {
         <RichText uploadImage={uploadImage} tinymceSrc={tinymceSrc} {...rest} />
       );
     case 'textarea':
-      return <TextArea style={itemStyle} placeholder={placeholder} {...rest} />;
+      return (
+        <TextArea
+          disabled={disable}
+          style={itemStyle}
+          placeholder={placeholder}
+          {...rest}
+        />
+      );
     case 'phone':
       return (
         <InputVerify
           placeholder={placeholder}
+          disabled={disable}
           checkPhone={item.checkPhone}
           sendCode={getVerifyCode}
         />
@@ -159,17 +201,46 @@ function getFormItem(item: FormItem & SearchProps) {
           getParams={getParams}
         />
       );
+    case 'radio':
+      return (
+        <Radio.Group disabled={disable}>
+          <Space direction={direction}>
+            {option &&
+              option.map((item: any) => {
+                let key = item.key;
+                let value = item.value;
+                if (typeof item === 'string') {
+                  key = item;
+                  value = item;
+                }
+                return (
+                  <Radio key={value} value={value}>
+                    {key}
+                  </Radio>
+                );
+              })}
+          </Space>
+        </Radio.Group>
+      );
     case 'checkbox':
       return (
-        <Checkbox.Group>
-          {option &&
-            option.map((item: any) => {
-              return (
-                <Checkbox key={item.value || item} value={item.value || item}>
-                  {item.key || item}
-                </Checkbox>
-              );
-            })}
+        <Checkbox.Group disabled={disable}>
+          <Space direction={direction}>
+            {option &&
+              option.map((item: any) => {
+                let key = item.key;
+                let value = item.value;
+                if (typeof item === 'string') {
+                  key = item;
+                  value = item;
+                }
+                return (
+                  <Checkbox key={value} value={value}>
+                    {key}
+                  </Checkbox>
+                );
+              })}
+          </Space>
         </Checkbox.Group>
       );
     case 'select':
@@ -178,6 +249,7 @@ function getFormItem(item: FormItem & SearchProps) {
       const mode = type === 'multiselect' ? 'multiple' : undefined;
       return (
         <Select
+          disabled={disable}
           allowClear={allowClear}
           showSearch={showSearch}
           mode={mode}
@@ -278,7 +350,7 @@ function MyFormV4(props: FormProps) {
         {...restForm}
       >
         <Row>
-          {list.map((item: FormItem) => {
+          {list.map(item => {
             // 级联选项处理
             if (item.parentName) {
               // eslint-disable-next-line no-param-reassign
@@ -293,8 +365,37 @@ function MyFormV4(props: FormProps) {
               label,
               rules,
               hidden = false,
+              disable = false,
               shouldUpdate = false,
+              type,
+              inputType,
+              itemStyle,
+              value,
+              option,
+              dateFormat,
+              showSearch = false,
+              allowClear = false,
+              extra,
+              describe,
+              showTime,
+              tinymceSrc,
+              direction = 'horizontal',
+              /** 树结构数据 */
+              treeData = [],
+              /** 需要加工的title字段 */
+              titleField = 'name',
+              /** 需要加工的key字段 */
+              keyField = 'id',
+              /** 需要加工的children字段 */
+              childrenField = 'children',
+              uploadImage,
+              getVerifyCode = nopop,
+              getOption,
+              getParams,
+              fetchOption,
+              disabledDate,
               renderItem,
+
               ...rest
             } = item;
             const span = item.span === 24 || !showCol ? 24 : 12;
@@ -337,5 +438,6 @@ function MyFormV4(props: FormProps) {
     </div>
   );
 }
+MyFormV4.getFormItem = getFormItem;
 
 export default MyFormV4;
