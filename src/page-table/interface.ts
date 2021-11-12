@@ -83,5 +83,5 @@ export interface IPageTableProps {
   /** 导出回调 */
   exportCallback?: (params: any) => void;
   /** 删除回调 */
-  deleteCallback?: (params: any) => void;
+  deleteCallback?: (params: any) => Promise<any>;
 }

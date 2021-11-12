@@ -102,6 +102,7 @@ const PageTable: FC<IPageTableProps> = props => {
       pageSize,
       ...searchConditons,
     });
+    setSelectedRowKeys([]);
   };
 
   const changePageNumAndSize = ({ num = pageNum, size = pageSize }) => {
