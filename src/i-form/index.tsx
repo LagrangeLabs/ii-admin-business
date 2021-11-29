@@ -148,21 +148,30 @@ export function getFormItem(item: FormItem & SearchProps) {
         />
       );
     case 'input':
-      return inputType === 'password' ? (
-        <Input.Password
-          disabled={disable}
-          type={inputType}
-          style={itemStyle}
-          placeholder={placeholder}
-        />
-      ) : (
-        <Input
+      const InputEle = inputType === 'password' ? Input.Password : Input;
+      return (
+        <InputEle
           disabled={disable}
           type={inputType}
           style={itemStyle}
           placeholder={placeholder}
         />
       );
+    // return inputType === 'password' ? (
+    //   <Input.Password
+    //     disabled={disable}
+    //     type={inputType}
+    //     style={itemStyle}
+    //     placeholder={placeholder}
+    //   />
+    // ) : (
+    //   <Input
+    //     disabled={disable}
+    //     type={inputType}
+    //     style={itemStyle}
+    //     placeholder={placeholder}
+    //   />
+    // );
     case 'upload':
       return (
         <IUpload
