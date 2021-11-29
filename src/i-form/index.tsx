@@ -141,8 +141,9 @@ export function getFormItem(item: FormItem & SearchProps) {
         />
       );
     case 'input':
+      const InputE = inputType === 'password' ? Input.Password : Input;
       return (
-        <Input
+        <InputE
           disabled={disable}
           type={inputType}
           style={itemStyle}
