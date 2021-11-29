@@ -130,9 +130,9 @@ export function getFormItem(item: FormItem & SearchProps) {
     case 'rangeDate':
       const format = dateFormat || 'YYYY-MM-DD';
       const showTimeR = showTime || getShowTime(format);
-      const DateE = type === 'date' ? DatePicker : RangePicker;
+      const DateEle = type === 'date' ? DatePicker : RangePicker;
       return (
-        <DateE
+        <DateEle
           disabled={disable}
           format={format}
           style={{ width: '100%', ...itemStyle }}
@@ -141,9 +141,9 @@ export function getFormItem(item: FormItem & SearchProps) {
         />
       );
     case 'input':
-      const InputE = inputType === 'password' ? Input.Password : Input;
+      const InputEle = inputType === 'password' ? Input.Password : Input;
       return (
-        <InputE
+        <InputEle
           disabled={disable}
           type={inputType}
           style={itemStyle}
