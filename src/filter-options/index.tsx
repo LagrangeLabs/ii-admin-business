@@ -22,10 +22,17 @@ interface FilterOptionProps {
   setFilterOpts: (params: object) => void;
   /** 各个搜索条件默认值 */
   defaultCondtions: { [key: string]: string };
+  /** 各个搜索条件值 */
+  searchConditons?: Record<string, any>;
 }
 
 const FilterOptions: FC<FilterOptionProps> = props => {
-  const { setFilterOpts, filters = [], defaultCondtions = {} } = props;
+  const {
+    setFilterOpts,
+    filters = [],
+    defaultCondtions = {},
+    searchConditons,
+  } = props;
 
   const changeRangeDate = (dates: Date[], filters: Array<string>) => {
     if (dates && dates.length > 0) {
@@ -100,10 +107,15 @@ const FilterOptions: FC<FilterOptionProps> = props => {
     const extraProps = item.extraProps ? item.extraProps : {};
     const filter: string = item.filter as string;
     const { allowClear = true } = item;
+    const valueProps: any = {};
+    if (searchConditons && searchConditons[filter]) {
+      valueProps.value = searchConditons[filter];
+    }
     switch (item.type) {
       case 'input':
         return (
           <Input
+            {...valueProps}
             key={`filter-${index}`}
             allowClear={allowClear}
             className={`${item.className} ii-ui-business-filter`}
@@ -118,6 +130,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
       case 'inputNumber':
         return (
           <InputNumber
+            {...valueProps}
             key={`filter-${index}`}
             className={`${item.className} ii-ui-business-filter`}
             style={{ width: item.width || 150, marginBottom: '20px' }}
@@ -132,6 +145,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
       case 'search':
         return (
           <Search
+            {...valueProps}
             key={`filter-${index}`}
             allowClear={allowClear}
             className={`${item.className} ii-ui-business-filter`}
@@ -147,6 +161,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
       case 'select':
         return (
           <Select
+            {...valueProps}
             mode={item.mode}
             allowClear={allowClear}
             key={`filter-${index}`}
@@ -154,7 +169,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
             style={{ width: item.width || 150, marginBottom: '20px' }}
             placeholder={item.placeholder}
             {...extraProps}
-            onChange={value =>
+            onChange={(value: any) =>
               handleValueChange(value, filter, item.filterType)
             }
           >
@@ -171,7 +186,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
             className={`${item.className} ii-ui-business-filter`}
             key={`filter-${index}`}
             options={item.options}
-            placeholder={item.placeholder}
+            placeholder={item.placeholder as string}
             style={{ width: item.width || 150, marginBottom: '20px' }}
             onChange={(value, options) =>
               handleCascaderChange(
@@ -188,7 +203,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
             key={`filter-${index}`}
             className={`${item.className} ii-ui-business-filter`}
             style={{ width: item.width || 150, marginBottom: '20px' }}
-            placeholder={item.placeholder}
+            placeholder={item.placeholder as string}
             format="YYYY-MM-DD HH:mm:ss"
             onChange={(dates: moment.Moment | null) =>
               changeDate(dates, filter)
@@ -202,6 +217,7 @@ const FilterOptions: FC<FilterOptionProps> = props => {
             className={`${item.className} ii-ui-business-filter`}
             style={{ width: item.width || 150, marginBottom: '20px' }}
             format={DFT_DATE_FORMAT}
+            placeholder={item.placeholder as [string, string]}
             onChange={(dates: any) =>
               changeRangeDate(dates, (filter as unknown) as string[])
             }

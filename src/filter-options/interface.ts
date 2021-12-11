@@ -30,7 +30,7 @@ export interface FilterItemProps {
   /** 是否允许清除, 默认值为true */
   allowClear?: boolean;
   /** 占位符 */
-  placeholder?: string;
+  placeholder?: string | string[];
   /** 筛选项字段：可以是字符、字符数组 */
   filter: string | Array<string>;
   /** 筛选项字段最终要拼装的数据格式类型 */
