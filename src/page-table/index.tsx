@@ -1,4 +1,9 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import { Button, message } from 'antd';
 import { ITable } from 'ii-admin-ui';
 import { SearchTree } from 'ii-admin-base';
@@ -24,11 +29,15 @@ const getSortFilterParamsDefault = (
   return { ordering };
 };
 
-const PageTable: FC<IPageTableProps> = props => {
+const PageTable: React.ForwardRefRenderFunction<any, IPageTableProps> = (
+  props,
+  ref,
+) => {
   const {
+    pageSize: defaultPageSize = 10,
     total,
     tableList,
-    uniqueKey,
+    uniqueKey = 'id',
     getTableList,
     children,
     pageTitle,
@@ -70,8 +79,16 @@ const PageTable: FC<IPageTableProps> = props => {
     ...restOptions
   } = props;
 
+  useImperativeHandle(ref, () => ({
+    changeCondition: (data: any) => {
+      setPageNum(1);
+      setPageSize(defaultPageSize);
+      setSearchConditions(data);
+    },
+  }));
+
   const [pageNum, setPageNum] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(defaultPageSize);
   const [searchConditons, setSearchConditions] = useState(defaultCondtions);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -144,7 +161,7 @@ const PageTable: FC<IPageTableProps> = props => {
 
   const handleSearchConditions = (data: any) => {
     setPageNum(1);
-    setPageSize(10);
+    setPageSize(defaultPageSize);
     setSearchConditions({ ...searchConditons, ...data });
   };
 
@@ -245,6 +262,7 @@ const PageTable: FC<IPageTableProps> = props => {
           ) : null}
           <div className="page-table-options">
             <FilterOptions
+              searchConditons={searchConditons}
               defaultCondtions={defaultCondtions}
               filters={filters}
               setFilterOpts={handleSearchConditions}
@@ -308,14 +326,4 @@ const PageTable: FC<IPageTableProps> = props => {
   );
 };
 
-PageTable.defaultProps = {
-  filters: [],
-  showCreate: false,
-  leftCreate: false,
-  needRefresh: false,
-  needExport: false,
-  needSelect: false,
-  uniqueKey: 'id',
-};
-
-export default PageTable;
+export default forwardRef(PageTable);

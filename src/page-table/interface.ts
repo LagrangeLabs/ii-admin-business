@@ -4,6 +4,8 @@ import { DataNode, TreeProps } from 'antd/lib/tree';
 import { FilterItemProps } from '../filter-options/interface';
 
 export interface IPageTableProps {
+  /** 每页数据数 */
+  pageSize?: number;
   /** 表单数据总数 */
   total?: number;
   /** 表单数据 */
