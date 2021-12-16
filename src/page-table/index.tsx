@@ -76,6 +76,7 @@ const PageTable: React.ForwardRefRenderFunction<any, IPageTableProps> = (
     needRefresh,
     scroll,
     resetFresh = false, // 是否回到第一页
+    rowSelection = {},
     ...restOptions
   } = props;
 
@@ -182,10 +183,11 @@ const PageTable: React.ForwardRefRenderFunction<any, IPageTableProps> = (
     }
   };
 
-  const rowSelection: any = needSelect
+  const rowSelectionR: any = needSelect
     ? {
         selectedRowKeys,
         onChange: onSelectChange,
+        ...rowSelection,
       }
     : undefined;
 
@@ -297,7 +299,7 @@ const PageTable: React.ForwardRefRenderFunction<any, IPageTableProps> = (
           rowKey={record => record[`${uniqueKey}`]}
           columns={nColumns}
           dataSource={tableList}
-          rowSelection={rowSelection}
+          rowSelection={rowSelectionR}
           scroll={scroll ? scroll : { x: 1132 }}
           onChange={onChange}
           pagination={{

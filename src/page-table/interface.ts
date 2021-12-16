@@ -67,6 +67,8 @@ export interface IPageTableProps {
   gap?: number;
   /** 排序key，默认值ordering */
   orderingKey?: string;
+  // 表格行是否可选择，配置项
+  rowSelection?: Object;
   /** tree节点选择回调 */
   onTreeSelect?: (params: any) => void;
 
