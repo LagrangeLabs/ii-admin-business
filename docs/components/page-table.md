@@ -176,6 +176,11 @@ export default () => {
           defaultExpandedKeys: ['0-0', '0-1'],
           selectable: true,
         }}
+        rowSelection={{
+          getCheckboxProps: record => ({
+            disabled: record.id === '1', // Column configuration not to be checked
+          }),
+        }}
       />
     </div>
   );
